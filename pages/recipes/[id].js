@@ -24,7 +24,7 @@ export default function Recipe({ recipe }) {
         mx="auto"
         rounded="lg"
         shadow="md"
-        minW="3xl"
+        width="100%"
         bg={useColorModeValue('gray.100', 'gray.600')}
         maxW="5xl"
       >

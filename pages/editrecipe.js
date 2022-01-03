@@ -100,10 +100,10 @@ export default function EditRecipe() {
         <Grid
           h="200px"
           templateRows="repeat(2, 1fr)"
-          templateColumns="repeat(5, 1fr)"
+          templateColumns={['repeat(1,1fr)', 'repeat(5, 1fr)']}
           gap={2}
         >
-          <GridItem colSpan={2}>
+          <GridItem colSpan={[1, 2]}>
             <FormControl>
               <FormLabel htmlFor="title">Title</FormLabel>
               <Input
@@ -115,7 +115,7 @@ export default function EditRecipe() {
               />
             </FormControl>
           </GridItem>
-          <GridItem colSpan={2}>
+          <GridItem colSpan={[1, 2]}>
             <FormControl>
               <FormLabel htmlFor="image">Image URL</FormLabel>
               <Input
@@ -127,7 +127,7 @@ export default function EditRecipe() {
               />
             </FormControl>
           </GridItem>
-          <GridItem colSpan={2}>
+          <GridItem colSpan={[1, 2]}>
             <FormControl>
               <FormLabel htmlFor="description">Description</FormLabel>
               <Textarea
@@ -138,7 +138,7 @@ export default function EditRecipe() {
               />
             </FormControl>
           </GridItem>
-          <GridItem colSpan={3}>
+          <GridItem colSpan={[1, 3]}>
             <FormControl>
               <FormLabel htmlFor="ingredients">Ingredients</FormLabel>
               <Textarea
@@ -148,7 +148,7 @@ export default function EditRecipe() {
               />
             </FormControl>
           </GridItem>
-          <GridItem colSpan={5}>
+          <GridItem colSpan={[1, 5]}>
             <FormControl>
               <FormLabel htmlFor="instructions">Instructions</FormLabel>
               <Textarea
@@ -209,12 +209,12 @@ export default function EditRecipe() {
               onChange={handleChange}
             />
           </FormControl>
-          <GridItem colSpan={2}>
+          <GridItem colSpan={[1, 2]}>
             <Button colorScheme="purple" width="100%" type="submit">
               Submit
             </Button>
           </GridItem>
-          <GridItem colSpan={2}>
+          <GridItem colSpan={[1, 2]}>
             <Link passHref href="/">
               <Button
                 colorScheme="purple"
