@@ -1,251 +1,263 @@
-import {Flex, Box, Link, chakra, Image, useColorModeValue} from '@chakra-ui/react'
+import {
+  Flex,
+  Box,
+  Button,
+  chakra,
+  Image,
+  useColorModeValue
+} from '@chakra-ui/react'
+import Link from 'next/link'
 
-export default function Recipe ({recipe}) {
-    console.log(recipe)
-    const {
-        title,
-        description,
-        ingredients,
-        instructions,
-        image,
-        category,
-    } = recipe;
+export default function Recipe({ recipe }) {
+  const { title, description, ingredients, instructions, image, category } =
+    recipe
 
-    return (
-        <Flex
-            bg={useColorModeValue("#F9FAFB", "gray.600")}
-            p={10}
-            w="full"
-            alignItems="center"
-            justifyContent="center"
-        >
+  return (
+    <Flex
+      bg={useColorModeValue('white', 'gray.800')}
+      p={10}
+      w="full"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Box
+        mx="auto"
+        rounded="lg"
+        shadow="md"
+        minW="3xl"
+        bg={useColorModeValue('gray.100', 'gray.600')}
+        maxW="5xl"
+      >
+        <Image
+          roundedTop="lg"
+          w="full"
+          h={64}
+          fit="cover"
+          src={image}
+          alt={title}
+        />
+        <Box p={6}>
+          <Box>
+            <chakra.span
+              fontSize="xs"
+              textTransform="uppercase"
+              color={useColorModeValue('gray.600', 'white')}
+            >
+              {category}
+            </chakra.span>
             <Box
-                mx="auto"
-                rounded="lg"
-                shadow="md"
-                minW="3xl"
-                bg={useColorModeValue("white", "gray.800")}
-                maxW="5xl"
-            >   
-                <Image
-                    roundedTop="lg"
-                    w="full"
-                    h={64}
-                    fit="cover"
-                    src={image}
-                    alt={title}
-                />
-                <Box p={6}>
-                    <Box>
-                        <chakra.span
-                            fontSize="xs"
-                            textTransform="uppercase"
-                            color={useColorModeValue("brand.600", "brand.400")}
-                        >
-                            {category}
-                        </chakra.span>
-                        <Link
-                            display="block"
-                            color={useColorModeValue("gray.800", "white")}
-                            fontWeight="bold"
-                            fontSize="2xl"
-                            mt={2}
-                            _hover={{ color: "gray.600", textDecor: "underline" }}
-                        >
-                            {title}
-                        </Link>
-                        <chakra.p
-                            mt={2}
-                            fontSize="sm"
-                            color={useColorModeValue("gray.600", "gray.400")}
-                        >
-                            {description}
-                        </chakra.p>
-                    </Box>
-                    <Box mt={6}>
-                        <Box>
-                            <chakra.span
-                                fontSize="lg" 
-                                fontWeight={500}
-                                color={useColorModeValue("gray.600", "gray.400")}
-                            >
-                                Ingredients
-                            </chakra.span>
-                            <chakra.ul
-                                mt={2}
-                                mx={8}
-                                fontSize="sm"
-                                color={useColorModeValue("gray.600", "gray.400")}
-                            >
-                                {ingredients.split(',').map((ingredient, index) => (
-                                    <chakra.li key={index}>
-                                        {ingredient}
-                                    </chakra.li> 
-                                ))}
-                            </chakra.ul>
-                        </Box>
-                        <Box mt={6}>
-                            <chakra.span
-                                fontSize="lg" 
-                                fontWeight={500}
-                                color={useColorModeValue("gray.600", "gray.400")}
-                            >
-                                Instructions
-                            </chakra.span>
-                            <chakra.ol
-                                mt={2}
-                                mx={8}
-                                fontSize="sm"
-                                color={useColorModeValue("gray.600", "gray.400")}
-                            >
-                                {instructions.split(',').map((instruction, index) => (
-                                    <chakra.li key={index}>
-                                        {instruction}
-                                    </chakra.li>
-                                ))}
-                            </chakra.ol>
-                        </Box>
-                    </Box>
-                </Box>
+              display="block"
+              color={useColorModeValue('gray.800', 'white')}
+              fontWeight="bold"
+              fontSize="2xl"
+              mt={2}
+              _hover={{ color: 'gray.600', textDecor: 'underline' }}
+            >
+              {title}
             </Box>
-        </Flex>
-    );
+            <chakra.p
+              mt={2}
+              fontSize="sm"
+              color={useColorModeValue('gray.600', 'gray.400')}
+            >
+              {description}
+            </chakra.p>
+          </Box>
+          <Box mt={6}>
+            <Box>
+              <chakra.span
+                fontSize="lg"
+                fontWeight={500}
+                color={useColorModeValue('gray.600', 'gray.400')}
+              >
+                Ingredients
+              </chakra.span>
+              <chakra.ul
+                mt={2}
+                mx={8}
+                fontSize="sm"
+                color={useColorModeValue('gray.600', 'gray.400')}
+              >
+                {ingredients.split(',').map((ingredient, index) => (
+                  <chakra.li key={index}>{ingredient}</chakra.li>
+                ))}
+              </chakra.ul>
+            </Box>
+            <Box mt={6}>
+              <chakra.span
+                fontSize="lg"
+                fontWeight={500}
+                color={useColorModeValue('gray.600', 'gray.400')}
+              >
+                Instructions
+              </chakra.span>
+              <chakra.ol
+                mt={2}
+                mx={8}
+                fontSize="sm"
+                color={useColorModeValue('gray.600', 'gray.400')}
+              >
+                {instructions.split(',').map((instruction, index) => (
+                  <chakra.li key={index}>{instruction}</chakra.li>
+                ))}
+              </chakra.ol>
+            </Box>
+          </Box>
+        </Box>
+        <Link
+          passHref
+          href={{ pathname: '/editrecipe', query: { id: recipe.id } }}
+        >
+          <Button as="a" variant="ghost" variantColor="blue">
+            {' '}
+            Edit Recipe{' '}
+          </Button>
+        </Link>
+      </Box>
+    </Flex>
+  )
 }
 
+export async function getStaticProps({ params }) {
+  const id = params.id
+  const recipes = [
+    {
+      id: '4',
+      title: 'Awesome Crab Roll',
+      description: 'Tastes just like mom used to make',
+      ingredients: 'Crab, Rice, Salt, Pepper',
+      instructions: 'Mix ingredients, roll, bake',
+      image:
+        'https://res.cloudinary.com/dub20ptvt/image/upload/v1641217989/Recipe%20App/yzt6ekukk0tvt4ipj9rg.jpg',
+      category: 'Appetizer',
+      prepTime: '10 minutes',
+      cookTime: '20 minutes',
+      servings: '4',
+      calories: '200'
+    },
+    {
+      id: '3',
+      title: 'Pizza',
+      description: 'super tastey',
+      ingredients: 'Pizza crust, Cheese, Sauce, Pepper',
+      instructions: 'Top crust with sauce, add your cheese, bake, eat',
+      image:
+        'https://res.cloudinary.com/dub20ptvt/image/upload/v1641217990/Recipe%20App/kn24c9af1suukkh5dvww.jpg',
+      category: 'Appetizer',
+      prepTime: '10 minutes',
+      cookTime: '20 minutes',
+      servings: '4',
+      calories: '200'
+    },
+    {
+      id: '2',
+      title: 'hot dog',
+      description: 'Tastes like freedom',
+      ingredients: 'hot dog, ketchup, mustard',
+      instructions:
+        'Take hot dog,cook on grill, put ketchup on top, put mustard on top',
+      image:
+        'https://res.cloudinary.com/dub20ptvt/image/upload/v1641217990/Recipe%20App/swzgd7lqpfsil9a045ri.jpg',
+      category: 'Appetizer',
+      prepTime: '10 minutes',
+      cookTime: '20 minutes',
+      servings: '4',
+      calories: '200'
+    },
+    {
+      id: '1',
+      title: 'chicken',
+      description: 'Great for meal prepping, super quick and easy',
+      ingredients: 'chicken, salt, pepper',
+      instructions:
+        'Trim fat, put a bunch of salt and pepper on it, and cook it',
+      image:
+        'https://res.cloudinary.com/dub20ptvt/image/upload/v1641217990/Recipe%20App/dnhuxb6uaoiytrbyka3g.jpg',
+      category: 'Appetizer',
+      prepTime: '10 minutes',
+      cookTime: '20 minutes',
+      servings: '4',
+      calories: '200'
+    }
+  ]
 
-
-
-
-
-
-
-export async function getStaticProps({params}) {
-    const id = params.id;
-    const recipes = [
-        {
-            title: 'Awesome Crab Roll',
-            description: 'Tastes how I remember',
-            ingredients: 'Crab, Rice, Salt, Pepper',
-            instructions: 'Mix ingredients, roll, bake',
-            image: 'https://picsum.photos/seed/picsum/1920/1080',
-            category: 'Appetizer',
-            prepTime: '10 minutes',
-            cookTime: '20 minutes',
-            servings: '4',
-            calories: '200',
-          },
-          {
-            title: 'Pizza',
-            description: 'super tastey',
-            ingredients: 'Pizza, Cheese, Salt, Pepper',
-            instructions: 'Mix ingredients, roll, bake',
-            image: 'https://picsum.photos/seed/picsum/1920/1080',
-            category: 'Appetizer',
-            prepTime: '10 minutes',
-            cookTime: '20 minutes',
-            servings: '4',
-            calories: '200',
-          },
-          {
-            title: 'hot dog',
-            description: 'tastes how I remember',
-            ingredients: 'hot dog, ketchup, mustard',
-            instructions: 'Mix ingredients, roll, bake',
-            image: 'https://picsum.photos/seed/picsum/1920/1080',
-            category: 'Appetizer',
-            prepTime: '10 minutes',
-            cookTime: '20 minutes',
-            servings: '4',
-            calories: '200',
-          },
-          {
-            title: 'chicken',
-            description: 'tastes how I remember',
-            ingredients: 'chicken, rice, salt, pepper',
-            instructions: 'Mix ingredients, roll, bake',
-            image: 'https://picsum.photos/seed/picsum/1920/1080',
-            category: 'Appetizer',
-            prepTime: '10 minutes',
-            cookTime: '20 minutes',
-            servings: '4',
-            calories: '200',
-          },
-        ]
-        
-        const recipe = recipes.find(recipe => recipe.title === id)
-        console.log(recipe)
-        return {
-            props: {
-                recipe
-            }
-        }
+  const recipe = recipes.find(recipe => recipe.id === id)
+  console.log(recipe)
+  return {
+    props: {
+      recipe
+    }
+  }
 }
-
-
-
-
-
-
-
 
 export async function getStaticPaths() {
-    const recipes = [
-        {
-            title: 'Awesome Crab Roll',
-            description: 'Tastes how I remember',
-            ingredients: 'Crab, Rice, Salt, Pepper',
-            instructions: 'Mix ingredients, roll, bake',
-            image: 'https://picsum.photos/seed/picsum/1920/1080',
-            category: 'Appetizer',
-            prepTime: '10 minutes',
-            cookTime: '20 minutes',
-            servings: '4',
-            calories: '200',
-          },
-          {
-            title: 'Pizza',
-            description: 'super tastey',
-            ingredients: 'Pizza, Cheese, Salt, Pepper',
-            instructions: 'Mix ingredients, roll, bake',
-            image: 'https://picsum.photos/seed/picsum/1920/1080',
-            category: 'Appetizer',
-            prepTime: '10 minutes',
-            cookTime: '20 minutes',
-            servings: '4',
-            calories: '200',
-          },
-          {
-            title: 'hot dog',
-            description: 'tastes how I remember',
-            ingredients: 'hot dog, ketchup, mustard',
-            instructions: 'Mix ingredients, roll, bake',
-            image: 'https://picsum.photos/seed/picsum/1920/1080',
-            category: 'Appetizer',
-            prepTime: '10 minutes',
-            cookTime: '20 minutes',
-            servings: '4',
-            calories: '200',
-          },
-          {
-            title: 'chicken',
-            description: 'tastes how I remember',
-            ingredients: 'chicken, rice, salt, pepper',
-            instructions: 'Mix ingredients, roll, bake',
-            image: 'https://picsum.photos/seed/picsum/1920/1080',
-            category: 'Appetizer',
-            prepTime: '10 minutes',
-            cookTime: '20 minutes',
-            servings: '4',
-            calories: '200',
-          },
-        ]
-        const paths = recipes.map(recipe => ({
-            params: {
-                id: recipe.title
-            }
-        }))
-    return {
-        paths,
-        fallback: false
+  const recipes = [
+    {
+      id: '4',
+      title: 'Awesome Crab Roll',
+      description: 'Tastes just like mom used to make',
+      ingredients: 'Crab, Rice, Salt, Pepper',
+      instructions: 'Mix ingredients, roll, bake',
+      image:
+        'https://res.cloudinary.com/dub20ptvt/image/upload/v1641217989/Recipe%20App/yzt6ekukk0tvt4ipj9rg.jpg',
+      category: 'Appetizer',
+      prepTime: '10 minutes',
+      cookTime: '20 minutes',
+      servings: '4',
+      calories: '200'
+    },
+    {
+      id: '3',
+      title: 'Pizza',
+      description: 'super tastey',
+      ingredients: 'Pizza crust, Cheese, Sauce, Pepper',
+      instructions: 'Top crust with sauce, add your cheese, bake, eat',
+      image:
+        'https://res.cloudinary.com/dub20ptvt/image/upload/v1641217990/Recipe%20App/kn24c9af1suukkh5dvww.jpg',
+      category: 'Appetizer',
+      prepTime: '10 minutes',
+      cookTime: '20 minutes',
+      servings: '4',
+      calories: '200'
+    },
+    {
+      id: '2',
+      title: 'hot dog',
+      description: 'Tastes like freedom',
+      ingredients: 'hot dog, ketchup, mustard',
+      instructions:
+        'Take hot dog,cook on grill, put ketchup on top, put mustard on top',
+      image:
+        'https://res.cloudinary.com/dub20ptvt/image/upload/v1641217990/Recipe%20App/swzgd7lqpfsil9a045ri.jpg',
+      category: 'Appetizer',
+      prepTime: '10 minutes',
+      cookTime: '20 minutes',
+      servings: '4',
+      calories: '200'
+    },
+    {
+      id: '1',
+      title: 'chicken',
+      description: 'Great for meal prepping, super quick and easy',
+      ingredients: 'chicken, salt, pepper',
+      instructions:
+        'Trim fat, put a bunch of salt and pepper on it, and cook it',
+      image:
+        'https://res.cloudinary.com/dub20ptvt/image/upload/v1641217990/Recipe%20App/dnhuxb6uaoiytrbyka3g.jpg',
+      category: 'Appetizer',
+      prepTime: '10 minutes',
+      cookTime: '20 minutes',
+      servings: '4',
+      calories: '200'
     }
+  ]
+  const paths = recipes.map(recipe => ({
+    params: {
+      id: recipe.id
     }
+  }))
+  return {
+    paths,
+    fallback: false
+  }
+}

@@ -10,21 +10,75 @@ import {
   Button
 } from '@chakra-ui/react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+
 import { useState } from 'react'
 
-export default function AddRecipe() {
-  const [recipe, setRecipe] = useState({
-    title: '',
-    description: '',
-    ingredients: '',
-    instructions: '',
-    image: '',
-    category: '',
-    prepTime: '',
-    cookTime: '',
-    servings: '',
-    calories: ''
-  })
+export default function EditRecipe() {
+  const router = useRouter()
+  const id = router.query.id
+  const recipes = [
+    {
+      id: '4',
+      title: 'Awesome Crab Roll',
+      description: 'Tastes just like mom used to make',
+      ingredients: 'Crab, Rice, Salt, Pepper',
+      instructions: 'Mix ingredients, roll, bake',
+      image:
+        'https://res.cloudinary.com/dub20ptvt/image/upload/v1641217989/Recipe%20App/yzt6ekukk0tvt4ipj9rg.jpg',
+      category: 'Appetizer',
+      prepTime: '10 minutes',
+      cookTime: '500 minutes',
+      servings: '4',
+      calories: '200'
+    },
+    {
+      id: '3',
+      title: 'Pizza',
+      description: 'super tastey',
+      ingredients: 'Pizza crust, Cheese, Sauce, Pepper',
+      instructions: 'Top crust with sauce, add your cheese, bake, eat',
+      image:
+        'https://res.cloudinary.com/dub20ptvt/image/upload/v1641217990/Recipe%20App/kn24c9af1suukkh5dvww.jpg',
+      category: 'Appetizer',
+      prepTime: '10 minutes',
+      cookTime: '20 minutes',
+      servings: '4',
+      calories: '200'
+    },
+    {
+      id: '2',
+      title: 'hot dog',
+      description: 'Tastes like freedom',
+      ingredients: 'hot dog, ketchup, mustard',
+      instructions:
+        'Take hot dog,cook on grill, put ketchup on top, put mustard on top',
+      image:
+        'https://res.cloudinary.com/dub20ptvt/image/upload/v1641217990/Recipe%20App/swzgd7lqpfsil9a045ri.jpg',
+      category: 'Appetizer',
+      prepTime: '10 minutes',
+      cookTime: '20 minutes',
+      servings: '4',
+      calories: '200'
+    },
+    {
+      id: '1',
+      title: 'chicken',
+      description: 'Great for meal prepping, super quick and easy',
+      ingredients: 'chicken, salt, pepper',
+      instructions:
+        'Trim fat, put a bunch of salt and pepper on it, and cook it',
+      image:
+        'https://res.cloudinary.com/dub20ptvt/image/upload/v1641217990/Recipe%20App/dnhuxb6uaoiytrbyka3g.jpg',
+      category: 'Appetizer',
+      prepTime: '10 minutes',
+      cookTime: '20 minutes',
+      servings: '4',
+      calories: '200'
+    }
+  ]
+  const [recipe, setRecipe] = useState(recipes.find(r => r.id === id))
+  console.log(recipe)
   const handleChange = e => {
     setRecipe({
       ...recipe,
@@ -35,7 +89,7 @@ export default function AddRecipe() {
   return (
     <Flex justifyContent="center" alignItems="center" flexDirection="column">
       <Heading as="h1" fontSize="7xl" textAlign="center">
-        Add Recipe
+        Edit Recipe
       </Heading>
       <form
         onSubmit={e => {
@@ -56,7 +110,7 @@ export default function AddRecipe() {
                 name="title"
                 type="text"
                 placeholder="Awesome Crab Roll"
-                value={recipe.title}
+                value={recipe?.title || ''}
                 onChange={handleChange}
               />
             </FormControl>
@@ -68,7 +122,7 @@ export default function AddRecipe() {
                 name="image"
                 type="text"
                 placeholder="https://lorem.picsum"
-                value={recipe.image}
+                value={recipe?.image || ''}
                 onChange={handleChange}
               />
             </FormControl>
@@ -79,7 +133,7 @@ export default function AddRecipe() {
               <Textarea
                 name="description"
                 placeholder="Tastes how I remember"
-                value={recipe.description}
+                value={recipe?.description || ''}
                 onChange={handleChange}
               />
             </FormControl>
@@ -89,7 +143,7 @@ export default function AddRecipe() {
               <FormLabel htmlFor="ingredients">Ingredients</FormLabel>
               <Textarea
                 name="ingredients"
-                value={recipe.ingredients}
+                value={recipe?.ingredients || ''}
                 onChange={handleChange}
               />
             </FormControl>
@@ -99,7 +153,7 @@ export default function AddRecipe() {
               <FormLabel htmlFor="instructions">Instructions</FormLabel>
               <Textarea
                 name="instructions"
-                value={recipe.instructions}
+                value={recipe?.instructions || ''}
                 onChange={handleChange}
               />
             </FormControl>
@@ -111,7 +165,7 @@ export default function AddRecipe() {
               name="cookTime"
               type="text"
               placeholder="in minutes"
-              value={recipe.cookTime}
+              value={recipe?.cookTime}
               onChange={handleChange}
             />
           </FormControl>
@@ -121,7 +175,7 @@ export default function AddRecipe() {
               name="servings"
               type="number"
               placeholder="5"
-              value={recipe.servings}
+              value={recipe?.servings || ''}
               onChange={handleChange}
             />
           </FormControl>
@@ -131,7 +185,7 @@ export default function AddRecipe() {
               name="calories"
               type="number"
               placeholder="300"
-              value={recipe.calories}
+              value={recipe?.calories || ''}
               onChange={handleChange}
             />
           </FormControl>
@@ -141,7 +195,7 @@ export default function AddRecipe() {
               name="category"
               type="text"
               placeholder="Asian"
-              value={recipe.category}
+              value={recipe?.category || ''}
               onChange={handleChange}
             />
           </FormControl>
@@ -151,7 +205,7 @@ export default function AddRecipe() {
               name="prepTime"
               type="text"
               placeholder="Prep in minutes"
-              value={recipe.prepTime}
+              value={recipe?.prepTime || ''}
               onChange={handleChange}
             />
           </FormControl>
