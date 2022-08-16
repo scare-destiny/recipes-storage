@@ -1,10 +1,10 @@
-import { Box, Center, Text, useColorModeValue as mode } from '@chakra-ui/react'
-import { Navbar } from './Navbar'
-import { NavLink } from './NavLink'
-import { UserProfile } from './UserProfile'
+import { Box, Center, Text, useColorModeValue as mode } from "@chakra-ui/react";
+import { Navbar } from "./Navbar";
+import { NavLink } from "./NavLink";
+import { UserProfile } from "./UserProfile";
 
 export const Nav = () => (
-  <Box bg={mode('gray.50', 'gray.700')}>
+  <Box bg={mode("gray.50", "gray.700")}>
     <Navbar>
       <Navbar.Brand>
         <Center marginEnd="10">
@@ -17,11 +17,11 @@ export const Nav = () => (
       </Navbar.Links>
       <Navbar.UserProfile>
         <UserProfile
-          name="James Perkins"
-          avatarUrl="https://pbs.twimg.com/profile_images/1478005071824756739/nVK4l2pR_400x400.jpg"
-          email="jamesperkins@hey.com"
+          name="Eugene Venger"
+          avatarUrl="https://cdnb.artstation.com/p/assets/images/images/044/872/909/large/batu-unutmaz-aangwmfn.jpg?1641374544"
+          email="zhenya.venger@gmail.com"
         />
       </Navbar.UserProfile>
     </Navbar>
   </Box>
-)
+);
