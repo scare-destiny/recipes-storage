@@ -62,7 +62,7 @@ export default function AddRecipe() {
         onSubmit={e => {
           e.preventDefault()
           handleSubmit()
-          alert('Рецептік додано!')
+          alert('Рецептік додано!!!')
         }}
       >
         <Grid
