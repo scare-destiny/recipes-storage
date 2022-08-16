@@ -18,7 +18,6 @@ import {
   doc,
   updateDoc
 } from 'firebase/firestore/lite'
-import { useUser } from '@clerk/nextjs'
 import { database } from '../firebase'
 import { useState, useEffect } from 'react'
 import { getAuth, signInWithCustomToken } from 'firebase/auth'

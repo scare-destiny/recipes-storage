@@ -11,12 +11,10 @@ import {
 } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useState } from 'react'
-import { useUser } from '@clerk/nextjs'
 import { getAuth, signInWithCustomToken } from 'firebase/auth'
 import { collection, getDocs, addDoc } from 'firebase/firestore/lite'
 import { database } from '../firebase'
 export default function AddRecipe() {
-  const user = useUser()
   const [recipe, setRecipe] = useState({
     title: '',
     description: '',
