@@ -23,7 +23,6 @@ import { useState, useEffect } from 'react'
 import { getAuth, signInWithCustomToken } from 'firebase/auth'
 export default function EditRecipe() {
   const router = useRouter()
-  const user = useUser()
   const id = router.query.id
   const [recipe, setRecipe] = useState({})
   useEffect(() => {
