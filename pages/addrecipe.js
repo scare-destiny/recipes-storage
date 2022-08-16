@@ -36,7 +36,7 @@ export default function AddRecipe() {
     })
   }
   const handleSubmit = async e => {
-    console.log('test')
+   
     // const firebaseClerkToken = await user.getToken('firebase')
     // const auth = getAuth()
     // await signInWithCustomToken(auth, firebaseClerkToken)
