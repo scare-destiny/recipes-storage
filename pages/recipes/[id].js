@@ -128,7 +128,7 @@ export async function getStaticProps({ params }) {
     props: {
       recipe
     },
-    revalidate: 10,
+    revalidate: 20,
   }
 }
 
@@ -147,6 +147,6 @@ export async function getStaticPaths() {
   }))
   return {
     paths,
-    fallback: false
+    fallback: 'blocking'
   }
 }

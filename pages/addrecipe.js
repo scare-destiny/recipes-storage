@@ -40,6 +40,7 @@ export default function AddRecipe() {
     // await signInWithCustomToken(auth, firebaseClerkToken)
 
     const result = await addDoc(collection(database, 'recipes'), recipe)
+    
     setRecipe({
       title: '',
       description: '',
