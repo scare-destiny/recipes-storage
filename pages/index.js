@@ -7,8 +7,8 @@ import {
 	Container,
 } from '@chakra-ui/react'
 import Head from 'next/head'
-import Image from 'next/image'
 import { RecipeCard } from '../components/RecipeCard'
+import Filter from '../components/Filter'
 import { useEffect, useState } from 'react'
 import { collection, getDocs } from 'firebase/firestore/lite'
 import { database } from '../firebase'
@@ -42,25 +42,7 @@ export default function Home() {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<Flex />
-
-			<Wrap
-				justifyContent='center'
-				align='center'
-				gap={4}
-				p='6'
-				direction='row'
-				maxW='100vw'
-				wrap
-			>
-				<Button onClick={() => setFilter('')}>All</Button>
-				<Button onClick={() => setFilter('pasta')}>Pasta</Button>
-				<Button onClick={() => setFilter('Veggies')}>Veggies</Button>
-				<Button onClick={() => setFilter('Appetizers')}>Appetizers</Button>
-				<Button onClick={() => setFilter('Salads')}>Salads</Button>
-				<Button onClick={() => setFilter('Breakfast')}>Breakfast</Button>
-				<Button onClick={() => setFilter('Dinner')}>Dinner</Button>
-			</Wrap>
-
+			<Filter/>
 			<SimpleGrid columns={[1, 2, 3]} spacing={4}>
 				{filteredRecipes.map((recipe, index) => (
 					<RecipeCard key={index} recipe={recipe} />
