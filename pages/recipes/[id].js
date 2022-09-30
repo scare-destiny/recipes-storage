@@ -28,12 +28,12 @@ export default function Recipe({ recipe }) {
 				shadow='md'
 				width='100%'
 				bg={useColorModeValue('gray.100', 'gray.600')}
-				maxW='5xl'
+				maxW='xl'
 			>
 				<Image
 					roundedTop='lg'
 					w='full'
-					fit='contain'
+					fit=''
 					src={image}
 					alt={title}
 				/>
