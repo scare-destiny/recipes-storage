@@ -33,8 +33,7 @@ export default function Recipe({ recipe }) {
 				<Image
 					roundedTop='lg'
 					w='full'
-					h={64}
-					fit='cover'
+					fit='contain'
 					src={image}
 					alt={title}
 				/>
