@@ -48,7 +48,7 @@ export const RecipeCard = ({ recipe }) => {
 								display='block'
 								color={useColorModeValue('gray.800', 'white')}
 								fontWeight='bold'
-								fontSize='2xl'
+								fontSize='xl'
 								mt={2}
 								_hover={{ color: 'gray.600', textDecor: 'underline' }}
 							>
