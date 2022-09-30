@@ -37,9 +37,16 @@ export default function Home() {
 				return data
 			})
 			setRecipes(recipes)
+			console.log(recipes)
 		}
 		getRecipes()
 	}, [])
+
+
+	useEffect(() => {
+		window.localStorage.setItem('filter', filter)
+	}, [filter])
+
 
 	const filteredRecipes = [...recipes].filter((recipe) =>
 		recipe.category.toLowerCase().includes(filter.toLowerCase())

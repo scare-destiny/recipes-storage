@@ -107,7 +107,7 @@ export default function Recipe({ recipe }) {
 						</Box>
 					</Box>
 				</Box>
-				<Flex justifyContent='space-between'>
+				<Flex justifyContent='space-between' p={4}>
 					<Link
 						passHref
 						href={{ pathname: '/editrecipe', query: { id: recipe.id } }}
