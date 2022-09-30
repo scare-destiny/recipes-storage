@@ -1,16 +1,15 @@
 import { Wrap, WrapItem, Button } from '@chakra-ui/react'
 
-const Filter = () => {
+const Filter = ({ categories, handleFilterChange }) => {
 	return (
 		<Wrap gap={4} p='6' direction='row' maxW='100vw' justify='center'>
-				<Button onClick={() => setFilter('')}>All</Button>
-				<Button onClick={() => setFilter('pasta')}>Pasta</Button>
-				<Button onClick={() => setFilter('Veggies')}>Veggies</Button>
-				<Button onClick={() => setFilter('Appetizers')}>Appetizers</Button>
-				<Button onClick={() => setFilter('Salads')}>Salads</Button>
-				<Button onClick={() => setFilter('Breakfast')}>Breakfast</Button>
-				<Button onClick={() => setFilter('Dinner')}>Dinner</Button>
-	
+			{categories.map((category, id) => (
+				<Button
+					key={id}
+					value={category}
+					onClick={handleFilterChange}>{category}
+				</Button>
+			))}
 		</Wrap>
 	)
 }

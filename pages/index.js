@@ -15,8 +15,18 @@ import { database } from '../firebase'
 
 export default function Home() {
 	const [filter, setFilter] = useState('')
+	const categories = [
+		'all',
+		'pasta',
+		'veggies',
+		'appetizers',
+		'salads',
+		'breakfast',
+		'dinner',
+	]
 
 	const [recipes, setRecipes] = useState([])
+
 	useEffect(() => {
 		async function getRecipes() {
 			const recipeCollection = collection(database, 'recipes')
@@ -35,6 +45,8 @@ export default function Home() {
 		recipe.category.toLowerCase().includes(filter.toLowerCase())
 	)
 
+	const recipesToShow = filter !== 'all' ? filteredRecipes : recipes
+
 	return (
 		<Flex justifyContent='center' alignItems='center' flexDirection='column'>
 			<Head>
@@ -42,9 +54,12 @@ export default function Home() {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<Flex />
-			<Filter/>
+			<Filter
+				categories={categories}
+				handleFilterChange={({ target }) => setFilter(target.value)}
+			/>
 			<SimpleGrid columns={[1, 2, 3]} spacing={4}>
-				{filteredRecipes.map((recipe, index) => (
+				{recipesToShow.map((recipe, index) => (
 					<RecipeCard key={index} recipe={recipe} />
 				))}
 			</SimpleGrid>
