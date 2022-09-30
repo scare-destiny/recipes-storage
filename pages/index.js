@@ -60,7 +60,6 @@ export default function Home() {
 				<title>Recipe App</title>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			<Flex />
 			<Filter
 				categories={categories}
 				handleFilterChange={({ target }) => setFilter(target.value)}
