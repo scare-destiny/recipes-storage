@@ -1,4 +1,11 @@
-import { Box, SimpleGrid, Flex, Button } from '@chakra-ui/react'
+import {
+	Box,
+	SimpleGrid,
+	Flex,
+	Button,
+	Wrap,
+	Container,
+} from '@chakra-ui/react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { RecipeCard } from '../components/RecipeCard'
@@ -35,7 +42,16 @@ export default function Home() {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<Flex />
-			<Flex padding='6' gap={4} wrap shrink>
+
+			<Wrap
+				justifyContent='center'
+				align='center'
+				gap={4}
+				p='6'
+				direction='row'
+				maxW='100vw'
+				wrap
+			>
 				<Button onClick={() => setFilter('')}>All</Button>
 				<Button onClick={() => setFilter('pasta')}>Pasta</Button>
 				<Button onClick={() => setFilter('Veggies')}>Veggies</Button>
@@ -43,7 +59,8 @@ export default function Home() {
 				<Button onClick={() => setFilter('Salads')}>Salads</Button>
 				<Button onClick={() => setFilter('Breakfast')}>Breakfast</Button>
 				<Button onClick={() => setFilter('Dinner')}>Dinner</Button>
-			</Flex>
+			</Wrap>
+
 			<SimpleGrid columns={[1, 2, 3]} spacing={4}>
 				{filteredRecipes.map((recipe, index) => (
 					<RecipeCard key={index} recipe={recipe} />

@@ -13,7 +13,7 @@ export const RecipeCard = ({ recipe }) => {
 		<Flex
 			bg={useColorModeValue('white', 'gray.800')}
 			p={30}
-      w='400px'
+      w={[300, 400, 500]}
 			alignItems='center'
 			justifyContent='center'
 		>
