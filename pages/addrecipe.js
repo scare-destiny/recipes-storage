@@ -8,6 +8,7 @@ import {
 	Grid,
 	GridItem,
 	Button,
+	Select,
 } from '@chakra-ui/react'
 import { AutoResizeTextarea } from '../components/Layout/AutoResizeTextarea'
 import Link from 'next/link'
@@ -15,6 +16,8 @@ import { useState } from 'react'
 import { getAuth, signInWithCustomToken } from 'firebase/auth'
 import { collection, getDocs, addDoc } from 'firebase/firestore/lite'
 import { database } from '../firebase'
+import categories from '../data/categories'
+
 export default function AddRecipe() {
 	const [recipe, setRecipe] = useState({
 		title: '',
@@ -52,10 +55,9 @@ export default function AddRecipe() {
 			cookTime: '',
 			servings: '',
 			calories: '',
-    })
-    
+		})
 	}
-  
+
 	return (
 		<Flex justifyContent='center' alignItems='center' flexDirection='column'>
 			<Heading as='h1' fontSize='7xl' textAlign='center'>
@@ -164,13 +166,16 @@ export default function AddRecipe() {
 					</FormControl>
 					<FormControl>
 						<FormLabel htmlFor='category'>Category</FormLabel>
-						<Input
+						<Select
 							name='category'
-							type='text'
-							placeholder='Asian'
-							value={recipe.category}
 							onChange={handleChange}
-						/>
+						>
+							{categories.map((category, index) => (
+								<option key={index} value={category} >
+									{category}
+									</option>
+							))}
+						</Select>
 					</FormControl>
 					<FormControl>
 						<FormLabel htmlFor='prepTime'>Prep Time</FormLabel>

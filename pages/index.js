@@ -9,21 +9,14 @@ import {
 import Head from 'next/head'
 import { RecipeCard } from '../components/RecipeCard'
 import Filter from '../components/Filter'
+import categories from '../data/categories'
 import { useEffect, useState } from 'react'
 import { collection, getDocs } from 'firebase/firestore/lite'
 import { database } from '../firebase'
 
 export default function Home() {
 	const [filter, setFilter] = useState('')
-	const categories = [
-		'all',
-		'pasta',
-		'veggies',
-		'appetizers',
-		'salads',
-		'breakfast',
-		'dinner',
-	]
+
 
 	const [recipes, setRecipes] = useState([])
 

@@ -8,7 +8,9 @@ import {
 	Grid,
 	GridItem,
 	Button,
+	Select
 } from '@chakra-ui/react'
+import { AutoResizeTextarea } from '../components/Layout/AutoResizeTextarea'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import {
@@ -20,7 +22,8 @@ import {
 } from 'firebase/firestore/lite'
 import { database } from '../firebase'
 import { useState, useEffect } from 'react'
-import { getAuth, signInWithCustomToken } from 'firebase/auth'
+import categories from '../data/categories'
+
 export default function EditRecipe() {
 	const router = useRouter()
 	const id = router.query.id
@@ -89,7 +92,7 @@ export default function EditRecipe() {
 					<GridItem colSpan={[1, 2]}>
 						<FormControl>
 							<FormLabel htmlFor='description'>Description</FormLabel>
-							<Textarea
+							<AutoResizeTextarea
 								name='description'
 								placeholder='Tastes how I remember'
 								value={recipe?.description || ''}
@@ -100,7 +103,7 @@ export default function EditRecipe() {
 					<GridItem colSpan={[1, 3]}>
 						<FormControl>
 							<FormLabel htmlFor='ingredients'>Ingredients</FormLabel>
-							<Textarea
+							<AutoResizeTextarea
 								name='ingredients'
 								value={recipe?.ingredients || ''}
 								onChange={handleChange}
@@ -110,7 +113,7 @@ export default function EditRecipe() {
 					<GridItem colSpan={[1, 5]}>
 						<FormControl>
 							<FormLabel htmlFor='instructions'>Instructions</FormLabel>
-							<Textarea
+							<AutoResizeTextarea
 								name='instructions'
 								value={recipe?.instructions || ''}
 								onChange={handleChange}
@@ -148,15 +151,16 @@ export default function EditRecipe() {
 							onChange={handleChange}
 						/>
 					</FormControl>
-					<FormControl>
-						<FormLabel htmlFor='category'>Category</FormLabel>
-						<Input
-							name='category'
-							type='text'
-							placeholder='Asian'
-							value={recipe?.category || ''}
-							onChange={handleChange}
-						/>
+
+						<FormControl>
+							<FormLabel htmlFor='category'>Category</FormLabel>
+							<Select name='category' value={recipe?.category || ''} onChange={handleChange}>
+								{categories.map((category, index) => (
+									<option key={index} value={category}>
+										{category}
+									</option>
+								))}
+							</Select>
 					</FormControl>
 					<FormControl>
 						<FormLabel htmlFor='prepTime'>Prep Time</FormLabel>
@@ -167,7 +171,7 @@ export default function EditRecipe() {
 							value={recipe?.prepTime || ''}
 							onChange={handleChange}
 						/>
-					</FormControl>
+	</FormControl>
 					<GridItem colSpan={[1, 2]}>
 						<Button colorScheme='purple' width='100%' type='submit'>
 							Submit
