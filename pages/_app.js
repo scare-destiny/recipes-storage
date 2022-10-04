@@ -38,11 +38,11 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 				) : (
 					<>
 						{/* <LoginButton /> */}
-						{/* <Auth> */}
-						<Nav />
-						<LoginButton />
-						<Component {...pageProps} />
-						{/* </Auth> */}
+						<Auth>
+							<Nav />
+							<LoginButton />
+							<Component {...pageProps} />
+						</Auth>
 					</>
 				)}
 			</ChakraProvider>
