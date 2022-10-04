@@ -13,10 +13,10 @@ import categories from '../data/categories'
 import { useEffect, useState } from 'react'
 import { collection, getDocs } from 'firebase/firestore/lite'
 import { database } from '../firebase'
+import LoginButton from '../components/login-btn'
 
 export default function Home() {
 	const [filter, setFilter] = useState('')
-
 
 	const [recipes, setRecipes] = useState([])
 
@@ -35,11 +35,9 @@ export default function Home() {
 		getRecipes()
 	}, [])
 
-
 	useEffect(() => {
 		window.localStorage.setItem('filter', filter)
 	}, [filter])
-
 
 	const filteredRecipes = [...recipes].filter((recipe) =>
 		recipe.category.toLowerCase().includes(filter.toLowerCase())
