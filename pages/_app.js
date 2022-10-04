@@ -1,9 +1,27 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { Nav } from '../components/Layout/Nav'
-import { SessionProvider, useSession } from 'next-auth/react'
+import { SessionProvider, useSession, signIn, signOut } from 'next-auth/react'
 
 const publicPages = ['/', `/recipes/[id]`]
+
+function LoginButton() {
+	const { data: session } = useSession()
+	if (session) {
+		return (
+			<>
+				Signed in as {session.user.email} <br />
+				<button onClick={() => signOut()}>Sign out</button>
+			</>
+		)
+	}
+	return (
+		<>
+			Not signed in <br />
+			<button onClick={() => signIn()}>Sign in</button>
+		</>
+	)
+}
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 	const { pathname } = useRouter()
@@ -22,6 +40,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 						{/* <LoginButton /> */}
 						{/* <Auth> */}
 						<Nav />
+						<LoginButton />
 						<Component {...pageProps} />
 						{/* </Auth> */}
 					</>
