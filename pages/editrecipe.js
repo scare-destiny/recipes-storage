@@ -8,7 +8,7 @@ import {
 	Grid,
 	GridItem,
 	Button,
-	Select
+	Select,
 } from '@chakra-ui/react'
 import { AutoResizeTextarea } from '../components/Layout/AutoResizeTextarea'
 import Link from 'next/link'
@@ -152,15 +152,19 @@ export default function EditRecipe() {
 						/>
 					</FormControl>
 
-						<FormControl>
-							<FormLabel htmlFor='category'>Category</FormLabel>
-							<Select name='category' value={recipe?.category || ''} onChange={handleChange}>
-								{categories.map((category, index) => (
-									<option key={index} value={category}>
-										{category}
-									</option>
-								))}
-							</Select>
+					<FormControl>
+						<FormLabel htmlFor='category'>Category</FormLabel>
+						<Select
+							name='category'
+							value={recipe?.category || ''}
+							onChange={handleChange}
+						>
+							{categories.map((category, index) => (
+								<option key={index} value={category}>
+									{category}
+								</option>
+							))}
+						</Select>
 					</FormControl>
 					<FormControl>
 						<FormLabel htmlFor='prepTime'>Prep Time</FormLabel>
@@ -171,7 +175,7 @@ export default function EditRecipe() {
 							value={recipe?.prepTime || ''}
 							onChange={handleChange}
 						/>
-	</FormControl>
+					</FormControl>
 					<GridItem colSpan={[1, 2]}>
 						<Button colorScheme='purple' width='100%' type='submit'>
 							Submit

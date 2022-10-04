@@ -166,14 +166,11 @@ export default function AddRecipe() {
 					</FormControl>
 					<FormControl>
 						<FormLabel htmlFor='category'>Category</FormLabel>
-						<Select
-							name='category'
-							onChange={handleChange}
-						>
+						<Select name='category' onChange={handleChange}>
 							{categories.map((category, index) => (
-								<option key={index} value={category} >
+								<option key={index} value={category}>
 									{category}
-									</option>
+								</option>
 							))}
 						</Select>
 					</FormControl>
