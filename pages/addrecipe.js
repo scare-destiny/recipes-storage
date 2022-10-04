@@ -186,7 +186,7 @@ export default function AddRecipe() {
 					</FormControl>
 					<GridItem colSpan={[1, 2]}>
 						<Button colorScheme='purple' width='100%' type='submit'>
-							Submit
+							Submit recipe
 						</Button>
 					</GridItem>
 					<GridItem colSpan={[1, 2]}>
