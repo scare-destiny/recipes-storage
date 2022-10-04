@@ -20,10 +20,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 				) : (
 					<>
 						{/* <LoginButton /> */}
-						<Auth>
-							<Nav />
-							<Component {...pageProps} />
-						</Auth>
+						{/* <Auth> */}
+						<Nav />
+						<Component {...pageProps} />
+						{/* </Auth> */}
 					</>
 				)}
 			</ChakraProvider>
