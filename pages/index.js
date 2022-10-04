@@ -13,7 +13,6 @@ import categories from '../data/categories'
 import { useEffect, useState } from 'react'
 import { collection, getDocs } from 'firebase/firestore/lite'
 import { database } from '../firebase'
-import LoginButton from '../components/login-btn'
 
 export default function Home() {
 	const [filter, setFilter] = useState('')

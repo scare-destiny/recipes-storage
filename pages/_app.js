@@ -2,7 +2,6 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { Nav } from '../components/Layout/Nav'
 import { SessionProvider, useSession } from 'next-auth/react'
-import LoginButton from '../components/login-btn'
 
 const publicPages = ['/', `/recipes/[id]`]
 
@@ -20,7 +19,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 					</>
 				) : (
 					<>
-						{/* <LoginButton /> */}
 						<Auth>
 							<Nav />
 							<Component {...pageProps} />
