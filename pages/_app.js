@@ -19,6 +19,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 					</>
 				) : (
 					<>
+						{/* <LoginButton /> */}
 						<Auth>
 							<Nav />
 							<Component {...pageProps} />
@@ -32,7 +33,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 
 function Auth({ children }) {
 	// if `{ required: true }` is supplied, `status` can only be "loading" or "authenticated"
-	const { status } = useSession({})
+	const { status } = useSession({ required: true })
 
 	if (status === 'loading') {
 		return <div>Loading...</div>
