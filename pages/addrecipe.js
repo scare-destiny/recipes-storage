@@ -15,6 +15,8 @@ import {
 	IconButton,
 	InputGroup,
 	InputRightElement,
+	useToast,
+	Wrap,
 } from '@chakra-ui/react'
 import { SearchIcon } from '@chakra-ui/icons'
 import { AutoResizeTextarea } from '../components/Layout/AutoResizeTextarea'
@@ -25,6 +27,7 @@ import { collection, getDocs, addDoc } from 'firebase/firestore/lite'
 import { database } from '../firebase'
 import categories from '../data/categories'
 import { getCuratedPhotos, getQueryPhotos } from '../lib/api'
+import Image from 'next/image'
 
 export async function getServerSideProps() {
 	const data = await getCuratedPhotos()
@@ -51,6 +54,7 @@ export default function AddRecipe({ data }) {
 
 	const [photos, setPhotos] = useState(data)
 	const [query, setQuery] = useState('')
+	const toast = useToast()
 
 	const handleChange = (e) => {
 		setRecipe({
@@ -77,6 +81,24 @@ export default function AddRecipe({ data }) {
 			servings: '',
 			calories: '',
 		})
+	}
+
+	const handleImageQuery = async (e) => {
+		await e.preventDefault()
+		if (query == '') {
+			toast({
+				title: 'Error.',
+				description: 'Empty Search',
+				status: 'error',
+				duration: 9000,
+				isClosable: true,
+				position: 'top',
+			})
+		} else {
+			const res = await getQueryPhotos(query)
+			await setPhotos(res)
+			await setQuery('')
+		}
 	}
 
 	return (
@@ -107,6 +129,7 @@ export default function AddRecipe({ data }) {
 									placeholder='Awesome Crab Roll'
 									value={recipe.title}
 									onChange={handleChange}
+									isRequired
 								/>
 							</FormControl>
 						</GridItem>
@@ -119,6 +142,7 @@ export default function AddRecipe({ data }) {
 									placeholder='https://lorem.picsum'
 									value={recipe.image}
 									onChange={handleChange}
+									isRequired
 								/>
 							</FormControl>
 						</GridItem>
@@ -208,8 +232,6 @@ export default function AddRecipe({ data }) {
 						</FormControl>
 						<GridItem colSpan={[1, 5]}>
 							<FormControl>
-								<FormLabel htmlFor='imagetest'>Search Image</FormLabel>
-								<SearchIcon position='fixed top-0 left-0 right-0' />
 								<Input
 									name='findimage'
 									type='text'
@@ -217,8 +239,19 @@ export default function AddRecipe({ data }) {
 									value={query}
 									onChange={(e) => setQuery(e.target.value)}
 								></Input>
+								<Button
+									colorScheme='blue'
+									width='50%'
+									type='submit'
+									onClick={handleImageQuery}
+								>
+									Find Images
+								</Button>
 							</FormControl>
 						</GridItem>
+						{/* <GridItem colSpan={[1, 4]}>
+					
+						</GridItem> */}
 						<GridItem colSpan={[1, 2]}>
 							<Button colorScheme='purple' width='100%' type='submit'>
 								Submit recipe
@@ -240,6 +273,47 @@ export default function AddRecipe({ data }) {
 					</Grid>
 				</form>
 			</Flex>
+			<Box>
+				<Wrap px='1rem' spacing={4} justify='center'>
+					{photos.map((pic) => (
+						<WrapItem
+							key={pic.id}
+							boxShadow='base'
+							rounded='20px'
+							overflow='hidden'
+							bg='white'
+							lineHeight='0'
+							_hover={{ boxShadow: 'dark-lg' }}
+						>
+							<Link href={`/photos/${pic.id}`}>
+								<a>
+									<Image src={pic.src.portrait} height={600} width={400} alt={pic.url} />
+								</a>
+							</Link>
+						</WrapItem>
+					))}
+				</Wrap>
+				<Flex my='1rem' justify='center' align='center' direction='column'>
+					<Image
+						src='https://images.pexels.com/lib/api/pexels.png'
+						height={50}
+						width={125}
+					/>
+					<a
+						href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
+						target='_blank'
+						rel='noopener noreferrer'
+					>
+						Powered by
+						<Image
+							src='/vercel.svg'
+							width={283 / 4}
+							height={64 / 4}
+							alt='Vercel Logo'
+						/>
+					</a>
+				</Flex>
+			</Box>
 		</>
 	)
 }
