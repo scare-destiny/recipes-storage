@@ -20,7 +20,7 @@ import {
 	deleteDoc,
 } from 'firebase/firestore/lite'
 import { database } from '../firebase'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { getAuth, signInWithCustomToken } from 'firebase/auth'
 
 export default function DeleteRecipe() {
@@ -33,7 +33,7 @@ export default function DeleteRecipe() {
 		router.push('/')
 	}
 	return (
-		<Button onClick={handleSubmit} colorScheme='purple' width='30%' type='submit' >
+		<Button onClick={handleSubmit} colorScheme='purple' width='30%' type='submit'>
 			Delete Recipe
 		</Button>
 	)
