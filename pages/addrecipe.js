@@ -5,6 +5,7 @@ import {
 	Input,
 	Heading,
 	Textarea,
+	Text,
 	Grid,
 	Box,
 	Container,
@@ -17,11 +18,17 @@ import {
 	InputRightElement,
 	useToast,
 	Wrap,
+	Accordion,
+	AccordionItem,
+	AccordionButton,
+	AccordionPanel,
+	AccordionIcon,
+	useColorModeValue,
 } from '@chakra-ui/react'
 import { SearchIcon } from '@chakra-ui/icons'
 import { AutoResizeTextarea } from '../components/Layout/AutoResizeTextarea'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { getAuth, signInWithCustomToken } from 'firebase/auth'
 import { collection, getDocs, addDoc } from 'firebase/firestore/lite'
 import { database } from '../firebase'
@@ -56,17 +63,20 @@ export default function AddRecipe({ data }) {
 	const [query, setQuery] = useState('')
 	const toast = useToast()
 
+	const toggleButtonRef = useRef(null)
+	const accordionRef = useRef(null)
+
 	const handleChange = (e) => {
 		setRecipe({
 			...recipe,
 			[e.target.name]: e.target.value,
 		})
 	}
+
 	const handleSubmit = async (e) => {
 		// const firebaseClerkToken = await user.getToken('firebase')
 		// const auth = getAuth()
 		// await signInWithCustomToken(auth, firebaseClerkToken)
-
 		const result = await addDoc(collection(database, 'recipes'), recipe)
 
 		setRecipe({
@@ -97,8 +107,29 @@ export default function AddRecipe({ data }) {
 		} else {
 			const res = await getQueryPhotos(query)
 			await setPhotos(res)
+
 			await setQuery('')
+			console.log(toggleButtonRef.current.class)
+
+			toggleButtonRef.current.click()
+			toggleButtonRef.current.disabled = true
 		}
+	}
+
+	const handleImageSelection = (e) => {
+		setRecipe({
+			...recipe,
+			['image']: e.target.src,
+		})
+
+		toast({
+			title: 'Реді Стеді!',
+			description: 'Рецептік до зображення додано 🐎',
+			status: 'success',
+			duration: 3000,
+			isClosable: true,
+			position: 'top',
+		})
 	}
 
 	return (
@@ -115,10 +146,10 @@ export default function AddRecipe({ data }) {
 					}}
 				>
 					<Grid
-						h='200px'
 						templateRows='repeat(2, 1fr)'
 						templateColumns={['repeat(1,1fr)', 'repeat(5, 1fr)']}
 						gap={2}
+						pb={4}
 					>
 						<GridItem colSpan={[1, 2]}>
 							<FormControl>
@@ -133,7 +164,7 @@ export default function AddRecipe({ data }) {
 								/>
 							</FormControl>
 						</GridItem>
-						<GridItem colSpan={[1, 2]}>
+						{/* <GridItem colSpan={[1, 2]}>
 							<FormControl>
 								<FormLabel htmlFor='image'>Image URL</FormLabel>
 								<Input
@@ -142,10 +173,9 @@ export default function AddRecipe({ data }) {
 									placeholder='https://lorem.picsum'
 									value={recipe.image}
 									onChange={handleChange}
-									isRequired
 								/>
 							</FormControl>
-						</GridItem>
+						</GridItem> */}
 						<GridItem colSpan={[1, 2]}>
 							<FormControl>
 								<FormLabel htmlFor='description'>Description</FormLabel>
@@ -233,7 +263,7 @@ export default function AddRecipe({ data }) {
 						<GridItem colSpan={[1, 5]}>
 							<FormControl>
 								<Input
-									name='findimage'
+									name='image'
 									type='text'
 									placeholder='Search Image'
 									value={query}
@@ -241,7 +271,8 @@ export default function AddRecipe({ data }) {
 								></Input>
 								<Button
 									colorScheme='blue'
-									width='50%'
+									w={['full', 400, 500]}
+									mt={4}
 									type='submit'
 									onClick={handleImageQuery}
 								>
@@ -249,9 +280,7 @@ export default function AddRecipe({ data }) {
 								</Button>
 							</FormControl>
 						</GridItem>
-						{/* <GridItem colSpan={[1, 4]}>
-					
-						</GridItem> */}
+						<GridItem colSpan={[1, 4]}></GridItem>
 						<GridItem colSpan={[1, 2]}>
 							<Button colorScheme='purple' width='100%' type='submit'>
 								Submit recipe
@@ -273,47 +302,65 @@ export default function AddRecipe({ data }) {
 					</Grid>
 				</form>
 			</Flex>
-			<Box>
-				<Wrap px='1rem' spacing={4} justify='center'>
-					{photos.map((pic) => (
-						<WrapItem
-							key={pic.id}
-							boxShadow='base'
-							rounded='20px'
-							overflow='hidden'
-							bg='white'
-							lineHeight='0'
-							_hover={{ boxShadow: 'dark-lg' }}
-						>
-							<Link href={`/photos/${pic.id}`}>
-								<a>
-									<Image src={pic.src.portrait} height={600} width={400} alt={pic.url} />
-								</a>
-							</Link>
-						</WrapItem>
-					))}
-				</Wrap>
-				<Flex my='1rem' justify='center' align='center' direction='column'>
-					<Image
-						src='https://images.pexels.com/lib/api/pexels.png'
-						height={50}
-						width={125}
-					/>
-					<a
-						href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
-						target='_blank'
-						rel='noopener noreferrer'
-					>
-						Powered by
-						<Image
-							src='/vercel.svg'
-							width={283 / 4}
-							height={64 / 4}
-							alt='Vercel Logo'
-						/>
-					</a>
-				</Flex>
-			</Box>
+			<Accordion p={10} allowToggle>
+				<AccordionItem ref={accordionRef}>
+					<h2>
+						<AccordionButton ref={toggleButtonRef}>
+							<Box flex='1' textAlign='left'>
+								Images
+							</Box>
+							<AccordionIcon />
+						</AccordionButton>
+					</h2>
+					<AccordionPanel>
+						<Box>
+							<Flex
+								my='1rem'
+								justify='center'
+								align='left'
+								color={useColorModeValue('gray.700', 'gray.900')}
+							>
+								<Wrap px='1rem' spacing={4} justify='center'>
+									{photos.map((pic) => (
+										<>
+											<WrapItem
+												key={pic.id}
+												boxShadow='base'
+												rounded='20px'
+												overflow='hidden'
+												bg='white'
+												lineHeight='0'
+												_hover={{ boxShadow: 'dark-lg' }}
+												flexDirection='column'
+												alignItems='center'
+											>
+												<Image
+													onClick={handleImageSelection}
+													src={pic.src.portrait}
+													height={300}
+													width={200}
+													alt={pic.url}
+												/>
+												<Text onClick={handleImageSelection} m={4}>
+													Click Me ⬆️
+												</Text>
+											</WrapItem>
+										</>
+									))}
+								</Wrap>
+							</Flex>
+							<Flex my='1rem' justify='center' align='center' direction='column'>
+								<Image
+									src='https://images.pexels.com/lib/api/pexels.png'
+									height={50}
+									width={125}
+									alt='recipes image'
+								/>
+							</Flex>
+						</Box>
+					</AccordionPanel>
+				</AccordionItem>
+			</Accordion>
 		</>
 	)
 }
