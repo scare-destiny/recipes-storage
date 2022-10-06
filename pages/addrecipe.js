@@ -33,17 +33,8 @@ import { getAuth, signInWithCustomToken } from 'firebase/auth'
 import { collection, getDocs, addDoc } from 'firebase/firestore/lite'
 import { database } from '../firebase'
 import categories from '../data/categories'
-import { getCuratedPhotos, getQueryPhotos } from '../lib/api'
+import { getQueryPhotos } from './api/lib/api'
 import Image from 'next/image'
-
-export async function getServerSideProps() {
-	const data = await getCuratedPhotos()
-	return {
-		props: {
-			data,
-		},
-	}
-}
 
 export default function AddRecipe({ data }) {
 	const [recipe, setRecipe] = useState({
@@ -59,7 +50,7 @@ export default function AddRecipe({ data }) {
 		calories: '',
 	})
 
-	const [photos, setPhotos] = useState(data)
+	const [photos, setPhotos] = useState([])
 	const [query, setQuery] = useState('')
 	const toast = useToast()
 
@@ -109,7 +100,6 @@ export default function AddRecipe({ data }) {
 			await setPhotos(res)
 
 			await setQuery('')
-			console.log(toggleButtonRef.current.class)
 
 			toggleButtonRef.current.click()
 			toggleButtonRef.current.disabled = true
