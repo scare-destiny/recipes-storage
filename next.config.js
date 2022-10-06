@@ -6,4 +6,7 @@ module.exports = {
 		FACEBOOK_CLIENT_ID: '1142200463385977',
 		FACEBOOK_CLIENT_SECRET: 'ee0cf361036cdda8a3d764ffc1305cc1',
 	},
+	images: {
+		domains: ['images.pexels.com'],
+	},
 }
