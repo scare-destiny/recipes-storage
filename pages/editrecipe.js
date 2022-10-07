@@ -62,7 +62,7 @@ export default function EditRecipe() {
 		const result = await updateDoc(doc(database, 'recipes', id), recipe)
 		router.push('/')
 	}
-	if (!isNastya()) {
+	if (!isNastyaOrZhenya()) {
 		return (
 			<Container>
 				<Text align='center' fontSize='3xl'>

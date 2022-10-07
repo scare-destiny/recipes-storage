@@ -155,7 +155,7 @@ export default function AddRecipe({ data }) {
 		})
 	}
 
-	if (!isNastya()) {
+	if (!isNastyaOrZhenya()) {
 		return (
 			<Container>
 				<Text align='center' fontSize='3xl'>
