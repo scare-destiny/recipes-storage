@@ -41,7 +41,11 @@ export default function AddRecipe({ data }) {
 	const { data: session, status } = useSession()
 
 	const isNastya = () => {
-		if (session.user.email === 'anastasiya.dyka1994@pbsync.com') return true
+		if (
+			session.user.email === 'anastasiya.dyka1994@pbsync.com' ||
+			session.user.email === 'zhenya.venger@gmail.com'
+		)
+			return true
 		return false
 	}
 
@@ -272,7 +276,7 @@ export default function AddRecipe({ data }) {
 								onChange={handleChange}
 							/>
 						</FormControl>
-						{/* <GridItem colSpan={[1, 5]}>
+						<GridItem colSpan={[1, 5]}>
 							<FormControl>
 								<Input
 									name='image'
@@ -291,7 +295,7 @@ export default function AddRecipe({ data }) {
 									Find Images
 								</Button>
 							</FormControl>
-						</GridItem> */}
+						</GridItem>
 						<GridItem colSpan={[1, 4]}></GridItem>
 						<GridItem colSpan={[1, 2]}>
 							<Button colorScheme='purple' width='100%' type='submit'>
@@ -314,7 +318,7 @@ export default function AddRecipe({ data }) {
 					</Grid>
 				</form>
 			</Flex>
-			{/* <Accordion p={10} allowToggle>
+			<Accordion p={10} allowToggle>
 				<AccordionItem ref={accordionRef}>
 					<h2>
 						<AccordionButton ref={toggleButtonRef}>
@@ -372,7 +376,7 @@ export default function AddRecipe({ data }) {
 						</Box>
 					</AccordionPanel>
 				</AccordionItem>
-			</Accordion> */}
+			</Accordion>
 		</>
 	)
 }
