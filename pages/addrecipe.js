@@ -29,7 +29,6 @@ import { SearchIcon } from '@chakra-ui/icons'
 import { AutoResizeTextarea } from '../components/Layout/AutoResizeTextarea'
 import Link from 'next/link'
 import { useState, useRef } from 'react'
-import { getAuth, signInWithCustomToken } from 'firebase/auth'
 import { collection, getDocs, addDoc } from 'firebase/firestore/lite'
 import { database } from '../firebase'
 import categories from '../data/categories'
@@ -40,12 +39,13 @@ import { useSession } from 'next-auth/react'
 export default function AddRecipe({ data }) {
 	const { data: session, status } = useSession()
 
-	const isNastya = () => {
+	const isNastyaOrZhenya = () => {
 		if (
 			session.user.email === 'anastasiya.dyka1994@pbsync.com' ||
 			session.user.email === 'zhenya.venger@gmail.com'
-		)
+		) {
 			return true
+		}
 		return false
 	}
 
