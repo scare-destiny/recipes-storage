@@ -80,20 +80,41 @@ export default function AddRecipe({ data }) {
 		// const firebaseClerkToken = await user.getToken('firebase')
 		// const auth = getAuth()
 		// await signInWithCustomToken(auth, firebaseClerkToken)
-		const result = await addDoc(collection(database, 'recipes'), recipe)
+		console.log(recipe.image)
+		if (recipe.image !== '') {
+			const result = await addDoc(collection(database, 'recipes'), recipe)
 
-		setRecipe({
-			title: '',
-			description: '',
-			ingredients: '',
-			instructions: '',
-			image: '',
-			category: '',
-			prepTime: '',
-			cookTime: '',
-			servings: '',
-			calories: '',
-		})
+			toast({
+				title: 'Рецептік додано',
+				description: '',
+				status: 'success',
+				duration: 3000,
+				isClosable: true,
+				position: 'top',
+			})
+
+			setRecipe({
+				title: '',
+				description: '',
+				ingredients: '',
+				instructions: '',
+				image: '',
+				category: '',
+				prepTime: '',
+				cookTime: '',
+				servings: '',
+				calories: '',
+			})
+		} else {
+			toast({
+				title: 'Упсі, забули вибрати зображення',
+				description: '',
+				status: 'error',
+				duration: 3000,
+				isClosable: true,
+				position: 'top',
+			})
+		}
 	}
 
 	const handleImageQuery = async (e) => {
@@ -121,8 +142,9 @@ export default function AddRecipe({ data }) {
 	const handleImageSelection = (e) => {
 		setRecipe({
 			...recipe,
-			['image']: e.target.src,
+			['image']: e.target.alt,
 		})
+		console.log(`$e target alt is ${e.target.alt}`)
 
 		toast({
 			title: 'Реді Стеді!',
@@ -154,7 +176,6 @@ export default function AddRecipe({ data }) {
 					onSubmit={(e) => {
 						e.preventDefault()
 						handleSubmit()
-						alert('Рецептік додано')
 					}}
 				>
 					<Grid
@@ -174,19 +195,6 @@ export default function AddRecipe({ data }) {
 									value={recipe.title}
 									onChange={handleChange}
 									isRequired
-								/>
-							</FormControl>
-						</GridItem>
-						<GridItem colSpan={[1, 2]}>
-							<FormControl>
-								<FormLabel htmlFor='image'>Image URL</FormLabel>
-								<Input
-									required
-									name='image'
-									type='text'
-									placeholder='https://lorem.picsum'
-									value={recipe.image}
-									onChange={handleChange}
 								/>
 							</FormControl>
 						</GridItem>
@@ -278,6 +286,7 @@ export default function AddRecipe({ data }) {
 						</FormControl>
 						<GridItem colSpan={[1, 5]}>
 							<FormControl>
+								<FormLabel htmlFor='image'>Find Image</FormLabel>
 								<Input
 									name='image'
 									type='text'
@@ -355,7 +364,7 @@ export default function AddRecipe({ data }) {
 													src={pic.src.portrait}
 													height={300}
 													width={200}
-													alt={pic.url}
+													alt={pic.src.portrait}
 												/>
 												<Text onClick={handleImageSelection} m={4}>
 													Click Me ⬆️
