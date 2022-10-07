@@ -7,6 +7,9 @@ const cors = Cors({
 
 export const getQueryPhotos = async (query) => {
 	const res = await fetch(`https://api.pexels.com/v1/search?query=${query}`, {
+		mode: 'no-cors',
+		method: 'GET',
+		credentials: 'include',
 		headers: {
 			Authorization: API_KEY,
 		},

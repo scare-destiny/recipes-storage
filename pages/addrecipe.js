@@ -128,13 +128,17 @@ export default function AddRecipe({ data }) {
 				position: 'top',
 			})
 		} else {
-			const res = await getQueryPhotos(query)
-			await setPhotos(res)
+			try {
+				const res = await getQueryPhotos(query)
+				await setPhotos(res)
 
-			await setQuery('')
+				await setQuery('')
 
-			toggleButtonRef.current.click()
-			toggleButtonRef.current.disabled = true
+				toggleButtonRef.current.click()
+				toggleButtonRef.current.disabled = true
+			} catch (error) {
+				console.log(error)
+			}
 		}
 	}
 
