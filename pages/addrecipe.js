@@ -80,7 +80,6 @@ export default function AddRecipe({ data }) {
 		// const firebaseClerkToken = await user.getToken('firebase')
 		// const auth = getAuth()
 		// await signInWithCustomToken(auth, firebaseClerkToken)
-		console.log(recipe.image)
 		if (recipe.image !== '') {
 			const result = await addDoc(collection(database, 'recipes'), recipe)
 
@@ -144,7 +143,6 @@ export default function AddRecipe({ data }) {
 			...recipe,
 			['image']: e.target.alt,
 		})
-		console.log(`$e target alt is ${e.target.alt}`)
 
 		toast({
 			title: 'Реді Стеді!',
