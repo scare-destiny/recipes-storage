@@ -45,7 +45,7 @@ export default function EditRecipe() {
 
 	const isNastyaOrZhenya = () => {
 		if (
-			session.user.email === 'anastasiya.dyka1994@pbsync.com' ||
+			session.user.email === 'anastasiya.dyka1994@gmail.com' ||
 			session.user.email === 'zhenya.venger@gmail.com'
 		)
 			return true
