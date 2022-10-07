@@ -339,12 +339,7 @@ export default function AddRecipe({ data }) {
 					</h2>
 					<AccordionPanel>
 						<Box>
-							<Flex
-								my='1rem'
-								justify='center'
-								align='left'
-								color={useColorModeValue('gray.700', 'gray.900')}
-							>
+							<Flex my='1rem' justify='center' align='left' color={'gray.900'}>
 								<Wrap px='1rem' spacing={4} justify='center'>
 									{photos.map((pic) => (
 										<>
