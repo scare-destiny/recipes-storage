@@ -29,7 +29,6 @@ export default function Home() {
 				return data
 			})
 			setRecipes(recipes)
-			console.log(recipes)
 		}
 		getRecipes()
 	}, [])
