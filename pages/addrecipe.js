@@ -80,6 +80,7 @@ export default function AddRecipe() {
 						<FormControl>
 							<FormLabel htmlFor='title'>Title</FormLabel>
 							<Input
+								required
 								name='title'
 								type='text'
 								placeholder='Awesome Crab Roll'
@@ -92,6 +93,7 @@ export default function AddRecipe() {
 						<FormControl>
 							<FormLabel htmlFor='image'>Image URL</FormLabel>
 							<Input
+								required
 								name='image'
 								type='text'
 								placeholder='https://lorem.picsum'
@@ -116,6 +118,7 @@ export default function AddRecipe() {
 						<FormControl>
 							<FormLabel htmlFor='ingredients'>Ingredients</FormLabel>
 							<AutoResizeTextarea
+								required
 								minH={30}
 								name='ingredients'
 								value={recipe.ingredients}
@@ -127,6 +130,7 @@ export default function AddRecipe() {
 						<FormControl>
 							<FormLabel htmlFor='instructions'>Instructions</FormLabel>
 							<AutoResizeTextarea
+								required
 								name='instructions'
 								value={recipe.instructions}
 								onChange={handleChange}

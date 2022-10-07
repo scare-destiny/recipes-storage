@@ -13,7 +13,7 @@ export const RecipeCard = ({ recipe }) => {
 		<Flex
 			bg={useColorModeValue('white', 'gray.800')}
 			p={30}
-			w={[300, 400, 500]}
+			// w={[300, 400, 500]}
 			alignItems='center'
 			justifyContent='center'
 		>
@@ -62,49 +62,7 @@ export const RecipeCard = ({ recipe }) => {
 						>
 							{description}
 						</chakra.p> */}
-					</Box>
-
-					<Box mt={4}>
-						<Flex alignItems='center'>
-							<Flex alignItems='center'>
-								<Box
-									mx={2}
-									fontWeight='bold'
-									color={useColorModeValue('gray.700', 'gray.200')}
-								>
-									Calories per serving
-								</Box>
-							</Flex>
-							<chakra.span
-								mx={1}
-								fontSize='sm'
-								color={useColorModeValue('gray.600', 'gray.300')}
-							>
-								{calories}
-							</chakra.span>
-						</Flex>
-					</Box>
-					<Box mt={4}>
-						<Flex alignItems='center'>
-							<Flex alignItems='center'>
-								<Box
-									mx={2}
-									fontWeight='bold'
-									color={useColorModeValue('gray.700', 'gray.200')}
-								>
-									Cook Time
-								</Box>
-							</Flex>
-							<chakra.span
-								mx={1}
-								fontSize='sm'
-								color={useColorModeValue('gray.600', 'gray.300')}
-							>
-								{cookTime}
-							</chakra.span>
-						</Flex>
-					</Box>
-				</Box>
+					</Box>				</Box>
 			</Box>
 		</Flex>
 	)
