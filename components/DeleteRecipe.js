@@ -33,7 +33,7 @@ export default function DeleteRecipe() {
 		router.push('/')
 	}
 	return (
-		<Button onClick={handleSubmit} colorScheme='purple' width='30%' type='submit'>
+		<Button onClick={handleSubmit} colorScheme='purple' width='40%' type='submit'>
 			Delete Recipe
 		</Button>
 	)

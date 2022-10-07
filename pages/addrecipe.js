@@ -145,7 +145,7 @@ export default function AddRecipe({ data }) {
 							<FormControl>
 								<FormLabel htmlFor='title'>Title</FormLabel>
 								<Input
-								required
+									required
 									name='title'
 									type='text'
 									placeholder='Awesome Crab Roll'
@@ -155,11 +155,11 @@ export default function AddRecipe({ data }) {
 								/>
 							</FormControl>
 						</GridItem>
-						{/* <GridItem colSpan={[1, 2]}>
+						<GridItem colSpan={[1, 2]}>
 							<FormControl>
 								<FormLabel htmlFor='image'>Image URL</FormLabel>
 								<Input
-								required
+									required
 									name='image'
 									type='text'
 									placeholder='https://lorem.picsum'
@@ -167,7 +167,7 @@ export default function AddRecipe({ data }) {
 									onChange={handleChange}
 								/>
 							</FormControl>
-						</GridItem> */}
+						</GridItem>
 						<GridItem colSpan={[1, 2]}>
 							<FormControl>
 								<FormLabel htmlFor='description'>Description</FormLabel>
@@ -184,7 +184,7 @@ export default function AddRecipe({ data }) {
 							<FormControl>
 								<FormLabel htmlFor='ingredients'>Ingredients</FormLabel>
 								<AutoResizeTextarea
-								required
+									required
 									minH={30}
 									name='ingredients'
 									value={recipe.ingredients}
@@ -196,7 +196,7 @@ export default function AddRecipe({ data }) {
 							<FormControl>
 								<FormLabel htmlFor='instructions'>Instructions</FormLabel>
 								<AutoResizeTextarea
-								required
+									required
 									name='instructions'
 									value={recipe.instructions}
 									onChange={handleChange}
@@ -254,7 +254,7 @@ export default function AddRecipe({ data }) {
 								onChange={handleChange}
 							/>
 						</FormControl>
-						<GridItem colSpan={[1, 5]}>
+						{/* <GridItem colSpan={[1, 5]}>
 							<FormControl>
 								<Input
 									name='image'
@@ -273,7 +273,7 @@ export default function AddRecipe({ data }) {
 									Find Images
 								</Button>
 							</FormControl>
-						</GridItem>
+						</GridItem> */}
 						<GridItem colSpan={[1, 4]}></GridItem>
 						<GridItem colSpan={[1, 2]}>
 							<Button colorScheme='purple' width='100%' type='submit'>
@@ -296,7 +296,7 @@ export default function AddRecipe({ data }) {
 					</Grid>
 				</form>
 			</Flex>
-			<Accordion p={10} allowToggle>
+			{/* <Accordion p={10} allowToggle>
 				<AccordionItem ref={accordionRef}>
 					<h2>
 						<AccordionButton ref={toggleButtonRef}>
@@ -354,7 +354,7 @@ export default function AddRecipe({ data }) {
 						</Box>
 					</AccordionPanel>
 				</AccordionItem>
-			</Accordion>
+			</Accordion> */}
 		</>
 	)
 }
