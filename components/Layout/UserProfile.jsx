@@ -20,7 +20,7 @@ export const UserProfile = props => {
         }}
         flex="1"
       >
-        <Avatar name={name} src={avatarUrl} size="sm" />
+        <Avatar name={name} src={avatarUrl} size="l" />
         <Flex
           direction="column"
           display={{

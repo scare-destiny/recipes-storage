@@ -35,8 +35,16 @@ import { database } from '../firebase'
 import categories from '../data/categories'
 import { getQueryPhotos } from './api/lib/api'
 import Image from 'next/image'
+import { useSession } from 'next-auth/react'
 
 export default function AddRecipe({ data }) {
+	const { data: session, status } = useSession()
+
+	const isNastya = () => {
+		if (session.user.email === 'anastasiya.dyka1994@pbsync.com') return true
+		return false
+	}
+
 	const [recipe, setRecipe] = useState({
 		title: '',
 		description: '',
@@ -120,6 +128,16 @@ export default function AddRecipe({ data }) {
 			isClosable: true,
 			position: 'top',
 		})
+	}
+
+	if (!isNastya()) {
+		return (
+			<Container>
+				<Text align='center' fontSize='3xl'>
+					Sorry, only Nastya can add recipes
+				</Text>
+			</Container>
+		)
 	}
 
 	return (

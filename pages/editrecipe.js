@@ -9,6 +9,8 @@ import {
 	GridItem,
 	Button,
 	Select,
+	Container,
+	Text,
 } from '@chakra-ui/react'
 import { AutoResizeTextarea } from '../components/Layout/AutoResizeTextarea'
 import Link from 'next/link'
@@ -22,6 +24,7 @@ import {
 } from 'firebase/firestore/lite'
 import { database } from '../firebase'
 import { useState, useEffect } from 'react'
+import { useSession } from 'next-auth/react'
 import categories from '../data/categories'
 
 export default function EditRecipe() {
@@ -38,6 +41,13 @@ export default function EditRecipe() {
 		fetchData()
 	}, [id])
 
+	const { data: session, status } = useSession()
+
+	const isNastya = () => {
+		if (session.user.email === 'anastasiya.dyka1994@pbsync.com') return true
+		return false
+	}
+
 	const handleChange = (e) => {
 		setRecipe({
 			...recipe,
@@ -48,6 +58,16 @@ export default function EditRecipe() {
 		const result = await updateDoc(doc(database, 'recipes', id), recipe)
 		router.push('/')
 	}
+	if (!isNastya()) {
+		return (
+			<Container>
+				<Text align='center' fontSize='3xl'>
+					Sorry, only Nastya can add recipes
+				</Text>
+			</Container>
+		)
+	}
+
 	return (
 		<Flex justifyContent='center' alignItems='center' flexDirection='column'>
 			<Heading as='h1' fontSize='7xl' textAlign='center'>
