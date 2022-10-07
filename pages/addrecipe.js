@@ -82,8 +82,12 @@ export default function AddRecipe({ data }) {
 		// await signInWithCustomToken(auth, firebaseClerkToken)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if (recipe.image !== '') {
 			const result = await addDoc(collection(database, 'recipes'), recipe)
+=======
+		const result = await addDoc(collection(database, 'recipes'), recipe)
+>>>>>>> parent of 8d002ee (added image search by image)
 =======
 		const result = await addDoc(collection(database, 'recipes'), recipe)
 >>>>>>> parent of 8d002ee (added image search by image)
