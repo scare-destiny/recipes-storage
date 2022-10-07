@@ -40,6 +40,7 @@ export default function AddRecipe({ data }) {
 	const { data: session, status } = useSession()
 
 	const isNastyaOrZhenya = () => {
+		console.log(session.user.email)
 		if (
 			session.user.email === 'anastasiya.dyka1994@gmail.com' ||
 			session.user.email === 'zhenya.venger@gmail.com'
