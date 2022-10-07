@@ -62,7 +62,7 @@ export default function EditRecipe() {
 		return (
 			<Container>
 				<Text align='center' fontSize='3xl'>
-					Sorry, only Nastya can add recipes
+					Sorry, only Nastya can edit recipes
 				</Text>
 			</Container>
 		)
