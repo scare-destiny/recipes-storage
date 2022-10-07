@@ -8,7 +8,7 @@ export const Nav = () => {
 	const { data: session, status } = useSession()
 
 	const avatar =
-		status === 'authenticated' ? session.user.image : 'https://i.imgur.com/K9qRrGP.png'
+		status === 'authenticated' ? session.user.image : ''
 	const email =
 		status === 'authenticated' ? session.user.email : ''
 	const name = 
