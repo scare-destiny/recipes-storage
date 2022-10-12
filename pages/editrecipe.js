@@ -43,8 +43,12 @@ export default function EditRecipe() {
 
 	const { data: session, status } = useSession()
 
-	const isNastya = () => {
-		if (session.user.email === 'anastasiya.dyka1994@pbsync.com') return true
+	const isNastyaOrZhenya = () => {
+		if (
+			session.user.email === 'anastasiya.dyka1994@gmail.com' ||
+			session.user.email === 'zhenya.venger@gmail.com'
+		)
+			return true
 		return false
 	}
 
@@ -58,7 +62,7 @@ export default function EditRecipe() {
 		const result = await updateDoc(doc(database, 'recipes', id), recipe)
 		router.push('/')
 	}
-	if (!isNastya()) {
+	if (!isNastyaOrZhenya()) {
 		return (
 			<Container>
 				<Text align='center' fontSize='3xl'>
