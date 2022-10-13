@@ -6,12 +6,10 @@ export default async function handler(req, res) {
 			headers: {
 				'Authorization': API_KEY,
 				// update with your user-agent
-				'User-Agent':
-					'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
-				'Accept': 'application/json; charset=UTF-8',
+				'Accept': 'application/json, text/plain, */*',
+				'User-Agent': '*',
 			},
 		})
-		console.log(req)
 		const data = await request.json()
 		return res.status(200).json(data.photos)
 	} catch (error) {
