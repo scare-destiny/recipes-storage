@@ -45,23 +45,22 @@ function Photos() {
 
 	if (error) return 'An error has occurred.'
 	if (!data) return 'Loading...'
+	console.log(data.photos)
 	return (
 		<div>
 			<p>testik</p>
-			{/* <h1>{data[0].alt}</h1>
 			<Image
-				src={data[0].src.portrait}
+				src={data.photos[0].src.portrait}
 				width={400}
 				height={400}
-				alt={data[0].alt}
+				alt={data.photos[0].alt}
 			/>
-			<p>{data[1].alt}</p>
 			<Image
-				src={data[1].src.portrait}
+				src={data.photos[1].src.portrait}
 				width={400}
 				height={400}
-				alt={data[0].alt}
-			/> */}
+				alt={data.photos[0].alt}
+			/>
 		</div>
 	)
 }

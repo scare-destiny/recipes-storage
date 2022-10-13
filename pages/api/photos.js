@@ -7,8 +7,9 @@ export default async function handler(req, res) {
 		})
 		console.log('Entered the serverless function')
 		const data = await request.json()
+		const photos = data.photos
 
-		return res.json({ data })
+		return res.json({ photos })
 	} catch (e) {
 		res.status(500).json({ message: e.message })
 	}
