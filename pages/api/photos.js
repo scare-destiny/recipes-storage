@@ -12,6 +12,7 @@ export default async function handler(req, res) {
 		})
 		console.log('Entered the serverless function')
 		const pexelsResponse = await request.json()
+		console.log(pexelsResponse)
 
 		res.status(200).json(pexelsResponse.photos)
 	} catch (error) {
