@@ -47,7 +47,8 @@ function Photos() {
 	if (!data) return 'Loading...'
 	return (
 		<div>
-			<h1>{data[0].alt}</h1>
+			<p>testik</p>
+			{/* <h1>{data[0].alt}</h1>
 			<Image
 				src={data[0].src.portrait}
 				width={400}
@@ -60,7 +61,7 @@ function Photos() {
 				width={400}
 				height={400}
 				alt={data[0].alt}
-			/>
+			/> */}
 		</div>
 	)
 }
