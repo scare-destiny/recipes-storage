@@ -14,7 +14,7 @@ export default async function handler(req, res) {
 		const pexelsResponse = await request.json()
 		console.log(pexelsResponse)
 
-		res.status(200).json({ name: 'John Doe' })
+		res.status(200).json(pexelsResponse.photos)
 	} catch (error) {
 		console.log(error)
 	}
