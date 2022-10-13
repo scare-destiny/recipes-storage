@@ -36,6 +36,35 @@ import categories from '../data/categories'
 import { getQueryPhotos } from './api/lib/api'
 import Image from 'next/image'
 import { useSession } from 'next-auth/react'
+import useSWR from 'swr'
+
+const fetcher = (url) => fetch(url).then((res) => res.json())
+
+function Photos() {
+	const { data, error } = useSWR('../../api/photos/', fetcher)
+
+	if (error) return 'An error has occurred.'
+	if (!data) return 'Loading...'
+	console.log(data)
+	return (
+		<div>
+			<h1>{data[0].alt}</h1>
+			<Image
+				src={data[0].src.portrait}
+				width={400}
+				height={400}
+				alt={data[0].alt}
+			/>
+			<p>{data[1].alt}</p>
+			<Image
+				src={data[1].src.portrait}
+				width={400}
+				height={400}
+				alt={data[0].alt}
+			/>
+		</div>
+	)
+}
 
 export default function AddRecipe({ data }) {
 	const { data: session, status } = useSession()
@@ -377,6 +406,7 @@ export default function AddRecipe({ data }) {
 					</AccordionPanel>
 				</AccordionItem>
 			</Accordion> */}
+			<Photos />
 		</>
 	)
 }
