@@ -13,7 +13,7 @@ export default async function handler(req, res) {
 		console.log('Entered the serverless function')
 		const data = await request.json()
 
-		return res.json({ message: 'Hello, World!' })
+		return res.json({ data })
 	} catch (e) {
 		res.status(500).json({ message: e.message })
 	}
