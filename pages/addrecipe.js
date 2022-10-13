@@ -41,7 +41,7 @@ import useSWR from 'swr'
 const fetcher = (url) => fetch(url).then((res) => res.json())
 
 function Photos() {
-	const { data, error } = useSWR('/api/photos/', fetcher)
+	const { data, error } = useSWR('/api/photos', fetcher)
 
 	if (error) return 'An error has occurred.'
 	if (!data) return 'Loading...'
