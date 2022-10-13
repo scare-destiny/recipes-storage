@@ -48,7 +48,7 @@ function Photos() {
 	console.log(data.photos)
 	return (
 		<div>
-			<p>testik</p>
+			{/* <p>testik</p>
 			<Image
 				src={data.photos[0].src.portrait}
 				width={400}
@@ -60,7 +60,7 @@ function Photos() {
 				width={400}
 				height={400}
 				alt={data.photos[0].alt}
-			/>
+			/> */}
 		</div>
 	)
 }
