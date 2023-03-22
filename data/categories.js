@@ -1,5 +1,4 @@
 const categories = [
-	
 	'pasta',
 	'veggies',
 	'appetizers',
@@ -9,4 +8,3 @@ const categories = [
 ]
 
 export default categories
-

@@ -29,7 +29,6 @@ export default function Home() {
 				return data
 			})
 			setRecipes(recipes)
-			console.log(recipes)
 		}
 		getRecipes()
 	}, [])
@@ -44,16 +43,17 @@ export default function Home() {
 
 	const recipesToShow = filter !== 'all' ? filteredRecipes : recipes
 
+	const handleFilterChange = ({ target }) => {
+		filter !== target.value ? setFilter(target.value) : setFilter('all')
+	}
+
 	return (
 		<Flex justifyContent='center' alignItems='center' flexDirection='column'>
 			<Head>
 				<title>Recipe App</title>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			<Filter
-				categories={categories}
-				handleFilterChange={({ target }) => setFilter(target.value)}
-			/>
+			<Filter categories={categories} handleFilterChange={handleFilterChange} />
 			<SimpleGrid columns={[1, 2, 3]} spacing={4}>
 				{recipesToShow.map((recipe, index) => (
 					<RecipeCard key={index} recipe={recipe} />
