@@ -1,11 +1,4 @@
-import {
-	Box,
-	SimpleGrid,
-	Flex,
-	Button,
-	Wrap,
-	Container,
-} from '@chakra-ui/react'
+import { SimpleGrid, Flex } from '@chakra-ui/react'
 import Head from 'next/head'
 import { RecipeCard } from '../components/RecipeCard'
 import Filter from '../components/Filter'
@@ -13,6 +6,10 @@ import categories from '../data/categories'
 import { useEffect, useState } from 'react'
 import { collection, getDocs } from 'firebase/firestore/lite'
 import { database } from '../firebase'
+import { motion } from 'framer-motion'
+
+const MotionSimpleGrid = motion(SimpleGrid)
+const MotionRecipeCard = motion(RecipeCard)
 
 export default function Home() {
 	const [filter, setFilter] = useState('')
@@ -44,9 +41,34 @@ export default function Home() {
 	const recipesToShow = filter !== 'all' ? filteredRecipes : recipes
 
 	const handleFilterChange = ({ target }) => {
+		console.log(target.value)
+		console.log()
 		filter !== target.value ? setFilter(target.value) : setFilter('all')
 	}
+	const gridAnimationVariants = {
+		hidden: {
+			opacity: 0,
+		},
+		visible: {
+			opacity: 1,
+			transition: {
+				delay: 0.5,
+				when: 'beforeChildren',
+				staggerChildren: 0.1,
+			},
+		},
+	}
 
+	const recipeAnimationVariants = {
+		hidden: { opacity: 0, scale: 0.9 },
+		visible: {
+			opacity: 1,
+			scale: 1.5,
+			transition: {
+				duration: 0.3,
+			},
+		},
+	}
 	return (
 		<Flex justifyContent='center' alignItems='center' flexDirection='column'>
 			<Head>
@@ -54,11 +76,24 @@ export default function Home() {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<Filter categories={categories} handleFilterChange={handleFilterChange} />
-			<SimpleGrid columns={[1, 2, 3]} spacing={4}>
+			<MotionSimpleGrid
+				columns={[1, 2, 3]}
+				spacing={4}
+				initial='hidden'
+				animate='visible'
+				variants={gridAnimationVariants}
+			>
 				{recipesToShow.map((recipe, index) => (
-					<RecipeCard key={index} recipe={recipe} />
+					<MotionRecipeCard
+						key={`${filter}-${index}`}
+						recipe={recipe}
+						initial='hidden'
+						animate='visible'
+						exit='hidden'
+						variants={recipeAnimationVariants}
+					/>
 				))}
-			</SimpleGrid>
+			</MotionSimpleGrid>
 		</Flex>
 	)
 }
