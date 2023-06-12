@@ -1,4 +1,3 @@
-import { Link } from 'next/link'
 import { Box, Center, Text, Button, useColorModeValue as mode } from '@chakra-ui/react'
 import { Navbar } from './Navbar'
 import { NavLink } from './NavLink'
@@ -35,11 +34,9 @@ export const Nav = () => {
 		<Box bg={mode('gray.50', 'gray.700')}>
 			<Navbar>
 				<Navbar.Brand>
-					<Link href='/' passHref> 
 						<Center marginEnd='10'>
-							<Text>Recipe App</Text>
+							<NavLink href='/'>Recipe App</NavLink>
 						</Center>
-					</Link>
 					<LoginButton/>
 				</Navbar.Brand>
 				<Navbar.Links>
