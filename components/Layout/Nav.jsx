@@ -1,8 +1,26 @@
-import { Box, Center, Text, useColorModeValue as mode } from '@chakra-ui/react'
+import { Box, Center, Text, Button, VStack, useColorModeValue as mode } from '@chakra-ui/react'
 import { Navbar } from './Navbar'
 import { NavLink } from './NavLink'
 import { UserProfile } from './UserProfile'
-import { useSession } from 'next-auth/react'
+import { useSession,signIn, signOut } from 'next-auth/react'
+
+
+export const LoginButton = () => {
+	const { data: session } = useSession()
+	if (session) {
+		return (
+			<>
+				Signed in as {session.user.email} <br />
+				<Button  onClick={() => signOut()}>Sign out</Button>
+			</>
+		)
+	}
+	return (
+		<>
+			<Button mr={{sm:'16px'}} onClick={() => signIn()}>Sign in</Button>
+		</>
+	)
+}
 
 export const Nav = () => {
 	const { data: session, status } = useSession()
@@ -20,17 +38,20 @@ export const Nav = () => {
 					<Center marginEnd='10'>
 						<Text>Recipe App</Text>
 					</Center>
+					<LoginButton/>
 				</Navbar.Brand>
 				<Navbar.Links>
 					<NavLink href='/'>Home</NavLink>
-					<NavLink href='/addrecipe'>Add Recipe</NavLink>]
+					<NavLink href='/addrecipe'>Add Recipe</NavLink>
 				</Navbar.Links>
+
 				<Navbar.UserProfile>
 					<UserProfile
 						name={name}
 						avatarUrl={avatar}
 						email={email}
 					/>
+
 				</Navbar.UserProfile>
 			</Navbar>
 		</Box>

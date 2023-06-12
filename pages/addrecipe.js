@@ -12,18 +12,7 @@ import {
 	GridItem,
 	Button,
 	Select,
-	WrapItem,
-	IconButton,
-	InputGroup,
-	InputRightElement,
 	useToast,
-	Wrap,
-	Accordion,
-	AccordionItem,
-	AccordionButton,
-	AccordionPanel,
-	AccordionIcon,
-	useColorModeValue,
 } from '@chakra-ui/react'
 import { SearchIcon } from '@chakra-ui/icons'
 import { AutoResizeTextarea } from '../components/Layout/AutoResizeTextarea'
