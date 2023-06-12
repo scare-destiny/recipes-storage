@@ -10,13 +10,13 @@ export const LoginButton = () => {
 	if (session) {
 		return (
 			<>
-				<Button  onClick={() => signOut()}>Sign out</Button>
+				<Button  variant='outline' onClick={() => signOut()}>Sign out</Button>
 			</>
 		)
 	}
 	return (
 		<>
-			<Button onClick={() => signIn()}>Sign in</Button>
+			<Button  variant='outline' onClick={() => signIn()}>Sign in</Button>
 		</>
 	)
 }
@@ -37,9 +37,9 @@ export const Nav = () => {
 						<Center marginEnd='10'>
 							<NavLink href='/'>Recipe App</NavLink>
 						</Center>
-					<LoginButton/>
 				</Navbar.Brand>
 				<Navbar.Links>
+					<LoginButton/>
 					<NavLink href='/'>Home</NavLink>
 					<NavLink href='/addrecipe'>Add Recipe</NavLink>
 				</Navbar.Links>

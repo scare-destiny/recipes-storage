@@ -30,7 +30,7 @@ export const Template = (props) => {
       {children.find((child) => child.type === Brand)?.props.children}
 
       <HStack
-        spacing={3}
+        spacing={4}
         display={{
           base: 'none',
           md: 'flex',
