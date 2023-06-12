@@ -10,14 +10,13 @@ export const LoginButton = () => {
 	if (session) {
 		return (
 			<>
-				Signed in as {session.user.email} <br />
 				<Button  onClick={() => signOut()}>Sign out</Button>
 			</>
 		)
 	}
 	return (
 		<>
-			<Button mr={{sm:'16px'}} onClick={() => signIn()}>Sign in</Button>
+			<Button onClick={() => signIn()}>Sign in</Button>
 		</>
 	)
 }
