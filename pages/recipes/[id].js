@@ -10,6 +10,7 @@ import Link from 'next/link'
 import { collection, getDocs, getDoc, doc } from 'firebase/firestore/lite'
 import { database } from '../../firebase'
 import { getServerSession } from 'next-auth/next'
+import { authOptions } from './auth/[...nextauth]'
 import DeleteRecipe from '../../components/DeleteRecipe'
 export default function Recipe({ recipe }) {
 	const { title, description, ingredients, instructions, image, category } =
@@ -118,8 +119,8 @@ export default function Recipe({ recipe }) {
 	)
 }
 
-export async function getServerSideProps(context) {
-	const session = await getSession({ req: context.req })
+export async function getServerSideProps(req, res) {
+	const session = await getServerSession(req, res, authOptions)
 
 	if (!session) {
 		return {
