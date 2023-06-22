@@ -10,7 +10,7 @@ import Link from 'next/link'
 import { collection, getDocs, getDoc, doc } from 'firebase/firestore/lite'
 import { database } from '../../firebase'
 import { getServerSession } from 'next-auth/next'
-import { authOptions } from './auth/[...nextauth]'
+import { authOptions } from '../api/auth/[...nextauth]'
 import DeleteRecipe from '../../components/DeleteRecipe'
 export default function Recipe({ recipe }) {
 	const { title, description, ingredients, instructions, image, category } =
