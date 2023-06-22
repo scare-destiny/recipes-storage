@@ -38,7 +38,7 @@ export default function Home() {
 			}
 			getRecipes()
 		}
-	}, [session])
+	}, [])
 
 	useEffect(() => {
 		window.localStorage.setItem('filter', filter)
