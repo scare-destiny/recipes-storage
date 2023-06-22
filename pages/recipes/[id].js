@@ -118,8 +118,8 @@ export default function Recipe({ recipe }) {
 	)
 }
 
-export async function getServerSideProps({ req, params }) {
-	const session = await getServerSession(req, res)
+export async function getServerSideProps(context) {
+	const session = await getSession({ req: context.req })
 
 	if (!session) {
 		return {
@@ -130,7 +130,7 @@ export async function getServerSideProps({ req, params }) {
 		}
 	}
 
-	const id = params.id
+	const id = context.params.id
 	const userEmail = session.user.email
 	const userRef = doc(database, 'users', userEmail)
 	const recipeRef = doc(userRef, 'recipes', id)
