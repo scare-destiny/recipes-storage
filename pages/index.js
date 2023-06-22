@@ -13,14 +13,14 @@ const MotionSimpleGrid = motion(SimpleGrid)
 const MotionRecipeCard = motion(RecipeCard)
 
 export default function Home() {
-	const { data: session, status } = useSession()
+	const { data: session } = useSession()
 
 	const [filter, setFilter] = useState('')
 
 	const [recipes, setRecipes] = useState([])
 
 	useEffect(() => {
-		if (session.user.email) {
+		if (session) {
 			async function getRecipes() {
 				const recipeCollection = collection(
 					database,
@@ -38,7 +38,7 @@ export default function Home() {
 			}
 			getRecipes()
 		}
-	}, [])
+	}, [session])
 
 	useEffect(() => {
 		window.localStorage.setItem('filter', filter)
@@ -93,16 +93,17 @@ export default function Home() {
 				animate='visible'
 				variants={gridAnimationVariants}
 			>
-				{recipesToShow.map((recipe, index) => (
-					<MotionRecipeCard
-						key={`${filter}-${index}`}
-						recipe={recipe}
-						initial='hidden'
-						animate='visible'
-						exit='hidden'
-						variants={recipeAnimationVariants}
-					/>
-				))}
+				{session &&
+					recipesToShow.map((recipe, index) => (
+						<MotionRecipeCard
+							key={`${filter}-${index}`}
+							recipe={recipe}
+							initial='hidden'
+							animate='visible'
+							exit='hidden'
+							variants={recipeAnimationVariants}
+						/>
+					))}
 			</MotionSimpleGrid>
 		</Flex>
 	)
