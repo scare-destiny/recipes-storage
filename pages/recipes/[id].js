@@ -9,6 +9,7 @@ import {
 import Link from 'next/link'
 import { collection, getDocs, getDoc, doc } from 'firebase/firestore/lite'
 import { database } from '../../firebase'
+import { useSession } from 'next-auth/react'
 import DeleteRecipe from '../../components/DeleteRecipe'
 export default function Recipe({ recipe }) {
 	const { title, description, ingredients, instructions, image, category } =
@@ -117,34 +118,28 @@ export default function Recipe({ recipe }) {
 	)
 }
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ req, params }) {
+	const session = await getSession({ req })
+	if (!session) {
+		return {
+			redirect: {
+				destination: '/login',
+				permanent: false,
+			},
+		}
+	}
+
 	const id = params.id
-	const recipeSnapshot = await getDoc(doc(database, 'recipes', id))
+	const userEmail = session.user.email
+	const userRef = doc(database, 'users', userEmail)
+	const recipeRef = doc(userRef, 'recipes', id)
+	const recipeSnapshot = await getDoc(recipeRef)
 	const recipe = recipeSnapshot.data()
 	recipe.id = recipeSnapshot.id
+
 	return {
 		props: {
 			recipe,
 		},
-		// revalidate: 10,
-	}
-}
-
-export async function getStaticPaths() {
-	const recipeCollection = collection(database, 'recipes')
-	const recipeSnapshot = await getDocs(recipeCollection)
-	const recipes = recipeSnapshot.docs.map((doc) => {
-		const data = doc.data()
-		data.id = doc.id
-		return data
-	})
-	const paths = recipes.map((recipe) => ({
-		params: {
-			id: recipe.id,
-		},
-	}))
-	return {
-		paths,
-		fallback: 'blocking',
 	}
 }
