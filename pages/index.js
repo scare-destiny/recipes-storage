@@ -4,6 +4,7 @@ import { RecipeCard } from '../components/RecipeCard'
 import Filter from '../components/Filter'
 import categories from '../data/categories'
 import { useEffect, useState } from 'react'
+import { useSession } from 'next-auth/react'
 import { collection, getDocs } from 'firebase/firestore/lite'
 import { database } from '../firebase'
 import { motion } from 'framer-motion'
@@ -12,22 +13,31 @@ const MotionSimpleGrid = motion(SimpleGrid)
 const MotionRecipeCard = motion(RecipeCard)
 
 export default function Home() {
+	const { data: session, status } = useSession()
+
 	const [filter, setFilter] = useState('')
 
 	const [recipes, setRecipes] = useState([])
 
 	useEffect(() => {
-		async function getRecipes() {
-			const recipeCollection = collection(database, 'recipes')
-			const recipeSnapshot = await getDocs(recipeCollection)
-			const recipes = recipeSnapshot.docs.map((doc) => {
-				const data = doc.data()
-				data.id = doc.id
-				return data
-			})
-			setRecipes(recipes)
+		if (session.user.email) {
+			async function getRecipes() {
+				const recipeCollection = collection(
+					database,
+					'users',
+					session.user.email,
+					'recipes'
+				)
+				const recipeSnapshot = await getDocs(recipeCollection)
+				const recipes = recipeSnapshot.docs.map((doc) => {
+					const data = doc.data()
+					data.id = doc.id
+					return data
+				})
+				setRecipes(recipes)
+			}
+			getRecipes()
 		}
-		getRecipes()
 	}, [])
 
 	useEffect(() => {
