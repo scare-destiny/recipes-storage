@@ -114,7 +114,7 @@ export default function Home() {
 				</>
 			) : (
 				<>
-					<Heading pt='4'>Add yor first recipe</Heading>
+					<Heading pt='4'>Login to add and edit yor recipes</Heading>
 					<Button mt='4' colorScheme='purple'>
 						<Link href='/addrecipe'>Add recipe</Link>
 					</Button>
