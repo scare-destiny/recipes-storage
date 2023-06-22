@@ -119,13 +119,13 @@ export default function Recipe({ recipe }) {
 	)
 }
 
-export async function getServerSideProps(req, res) {
-	const session = await getServerSession(req, res, authOptions)
+export async function getServerSideProps(context) {
+	const session = await getServerSession(context.req, context.res, authOptions)
 
 	if (!session) {
 		return {
 			redirect: {
-				destination: '/login',
+				destination: '/',
 				permanent: false,
 			},
 		}
