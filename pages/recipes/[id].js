@@ -30,13 +30,7 @@ export default function Recipe({ recipe }) {
 				bg={useColorModeValue('gray.100', 'gray.600')}
 				maxW='xl'
 			>
-				<Image
-					roundedTop='lg'
-					w='full'
-					fit=''
-					src={image}
-					alt={title}
-				/>
+				<Image roundedTop='lg' w='full' fit='' src={image} alt={title} />
 				<Box p={6}>
 					<Box>
 						<chakra.span
@@ -132,7 +126,7 @@ export async function getStaticProps({ params }) {
 		props: {
 			recipe,
 		},
-		revalidate: 10,
+		// revalidate: 10,
 	}
 }
 
