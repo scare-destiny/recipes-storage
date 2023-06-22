@@ -16,12 +16,12 @@ export default function Home() {
 	const { data: session } = useSession()
 
 	const [filter, setFilter] = useState('')
-
+	const [recipesFetched, setRecipesFetched] = useState(false)
 	const [recipes, setRecipes] = useState([])
 
 	useEffect(() => {
 		console.log(` session!!!${session}`)
-		if (session) {
+		if (session && !recipesFetched) {
 			async function getRecipes() {
 				const recipeCollection = collection(
 					database,
@@ -36,8 +36,11 @@ export default function Home() {
 					return data
 				})
 				setRecipes(recipes)
+				setRecipesFetched(true)
 			}
 			getRecipes()
+		} else if (!session) {
+			setRecipesFetched(false)
 		}
 	}, [session])
 
