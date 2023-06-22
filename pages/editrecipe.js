@@ -30,18 +30,25 @@ import categories from '../data/categories'
 export default function EditRecipe() {
 	const router = useRouter()
 	const id = router.query.id
+	const { data: session, status } = useSession()
+
 	const [recipe, setRecipe] = useState({})
 	useEffect(() => {
 		async function fetchData() {
-			const recipeSnapshot = await getDoc(doc(database, 'recipes', id))
+			const recipeCollection = collection(
+				database,
+				'users',
+				session.user.email,
+				'recipes'
+			)
+			const recipeSnapshot = await getDoc(recipeCollection, id)
+			// const recipeSnapshot = await getDoc(doc(database, 'recipes', id))
 			const recipe = recipeSnapshot.data()
 			recipe.id = recipeSnapshot.id
 			setRecipe(recipe)
 		}
 		fetchData()
 	}, [id])
-
-	const { data: session, status } = useSession()
 
 	const isNastyaOrZhenya = () => {
 		if (
