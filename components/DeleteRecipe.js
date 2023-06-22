@@ -23,21 +23,25 @@ export default function DeleteRecipe() {
 	const [recipe, setRecipe] = useState({})
 
 	const handleSubmit = async (e) => {
-		if (isNastyaOrZhenya()) {
-			const result = await deleteDoc(doc(database, 'recipes', id))
-			router.push('/')
-			return
-		} else {
-			toast({
-				title: 'Соррі, ви не можете видалити рецепт',
-				description: '',
-				status: 'error',
-				duration: 3000,
-				isClosable: true,
-				position: 'center',
-			})
-		}
+		// if (isNastyaOrZhenya()) {
+		const result = await deleteDoc(
+			doc(database, 'users', session.user.email, 'recipes', id)
+		)
+
+		router.push('/')
+		return
 	}
+	// else {
+	// 	toast({
+	// 		title: 'Соррі, ви не можете видалити рецепт',
+	// 		description: '',
+	// 		status: 'error',
+	// 		duration: 3000,
+	// 		isClosable: true,
+	// 		position: 'center',
+	// 	})
+	// }
+
 	return (
 		<Button onClick={handleSubmit} colorScheme='purple' width='40%' type='submit'>
 			Delete Recipe

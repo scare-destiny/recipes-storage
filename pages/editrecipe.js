@@ -62,7 +62,10 @@ export default function EditRecipe() {
 		})
 	}
 	const handleSubmit = async (e) => {
-		const result = await updateDoc(doc(database, 'recipes', id), recipe)
+		const result = await updateDoc(
+			doc(database, 'users', session.user.email, 'recipes', id),
+			recipe
+		)
 		router.push('/')
 	}
 	if (!isNastyaOrZhenya()) {
