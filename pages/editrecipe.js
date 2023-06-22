@@ -35,13 +35,9 @@ export default function EditRecipe() {
 	const [recipe, setRecipe] = useState({})
 	useEffect(() => {
 		async function fetchData() {
-			const recipeCollection = collection(
-				database,
-				'users',
-				session.user.email,
-				'recipes'
-			)
-			const recipeSnapshot = await getDoc(recipeCollection, id)
+			const docRef = doc(database, 'users', session.user.email, 'recipes', id)
+			const recipeSnapshot = await getDoc(docRef)
+
 			// const recipeSnapshot = await getDoc(doc(database, 'recipes', id))
 			const recipe = recipeSnapshot.data()
 			recipe.id = recipeSnapshot.id
