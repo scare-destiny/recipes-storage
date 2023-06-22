@@ -1,4 +1,5 @@
-import { SimpleGrid, Flex } from '@chakra-ui/react'
+import { SimpleGrid, Flex, Heading, Button } from '@chakra-ui/react'
+import Link from 'next/link'
 import Head from 'next/head'
 import { RecipeCard } from '../components/RecipeCard'
 import Filter from '../components/Filter'
@@ -20,7 +21,6 @@ export default function Home() {
 	const [recipes, setRecipes] = useState([])
 
 	useEffect(() => {
-		console.log(` session!!!${session}`)
 		if (session && !recipesFetched) {
 			async function getRecipes() {
 				const recipeCollection = collection(
@@ -89,26 +89,37 @@ export default function Home() {
 				<title>Recipe App</title>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			<Filter categories={categories} handleFilterChange={handleFilterChange} />
-			<MotionSimpleGrid
-				columns={[1, 2, 3]}
-				spacing={4}
-				initial='hidden'
-				animate='visible'
-				variants={gridAnimationVariants}
-			>
-				{session &&
-					recipesToShow.map((recipe, index) => (
-						<MotionRecipeCard
-							key={`${filter}-${index}`}
-							recipe={recipe}
-							initial='hidden'
-							animate='visible'
-							exit='hidden'
-							variants={recipeAnimationVariants}
-						/>
-					))}
-			</MotionSimpleGrid>
+			{session ? (
+				<>
+					<Filter categories={categories} handleFilterChange={handleFilterChange} />
+
+					<MotionSimpleGrid
+						columns={[1, 2, 3]}
+						spacing={4}
+						initial='hidden'
+						animate='visible'
+						variants={gridAnimationVariants}
+					>
+						{recipesToShow.map((recipe, index) => (
+							<MotionRecipeCard
+								key={`${filter}-${index}`}
+								recipe={recipe}
+								initial='hidden'
+								animate='visible'
+								exit='hidden'
+								variants={recipeAnimationVariants}
+							/>
+						))}
+					</MotionSimpleGrid>
+				</>
+			) : (
+				<>
+					<Heading pt='4'>Add yor first recipe</Heading>
+					<Button mt='4' colorScheme='purple'>
+						<Link href='/addrecipe'>Add recipe</Link>
+					</Button>
+				</>
+			)}
 		</Flex>
 	)
 }
