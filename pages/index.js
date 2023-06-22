@@ -20,6 +20,7 @@ export default function Home() {
 	const [recipes, setRecipes] = useState([])
 
 	useEffect(() => {
+		console.log(` session!!!${session}`)
 		if (session) {
 			async function getRecipes() {
 				const recipeCollection = collection(
@@ -38,7 +39,7 @@ export default function Home() {
 			}
 			getRecipes()
 		}
-	}, [])
+	}, [session])
 
 	useEffect(() => {
 		window.localStorage.setItem('filter', filter)
