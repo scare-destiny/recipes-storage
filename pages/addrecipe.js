@@ -14,16 +14,14 @@ import {
 	Select,
 	useToast,
 } from '@chakra-ui/react'
-import { SearchIcon } from '@chakra-ui/icons'
 import { AutoResizeTextarea } from '../components/Layout/AutoResizeTextarea'
 import Link from 'next/link'
 import { useState, useRef } from 'react'
-import { getAuth, signInWithCustomToken } from 'firebase/auth'
+
 import { collection, getDocs, addDoc } from 'firebase/firestore/lite'
 import { database } from '../firebase'
 import categories from '../data/categories'
 import { getQueryPhotos } from './api/lib/api'
-import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 import useSWR from 'swr'
 
@@ -97,7 +95,17 @@ export default function AddRecipe({ data }) {
 		// const firebaseClerkToken = await user.getToken('firebase')
 		// const auth = getAuth()
 		// await signInWithCustomToken(auth, firebaseClerkToken)
-		const result = await addDoc(collection(database, 'recipes'), recipe)
+		try {
+			const userRecipesCollection = collection(
+				database,
+				'users',
+				session.user.email,
+				'recipes'
+			)
+			const result = await addDoc(userRecipesCollection, recipe)
+		} catch (error) {
+			console.error('Error adding document: ', e)
+		}
 
 		setRecipe({
 			title: '',
@@ -151,15 +159,15 @@ export default function AddRecipe({ data }) {
 		})
 	}
 
-	if (!isNastyaOrZhenya()) {
-		return (
-			<Container>
-				<Text align='center' fontSize='3xl'>
-					Sorry, only Nastya can add recipes
-				</Text>
-			</Container>
-		)
-	}
+	// if (!isNastyaOrZhenya()) {
+	// 	return (
+	// 		<Container>
+	// 			<Text align='center' fontSize='3xl'>
+	// 				Sorry, only Nastya can add recipes
+	// 			</Text>
+	// 		</Container>
+	// 	)
+	// }
 
 	return (
 		<>
