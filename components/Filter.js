@@ -8,7 +8,7 @@ const Filter = ({ categories, handleFilterChange }) => {
 					key={id}
 					value={category}
 					onClick={handleFilterChange}
-					_dark={{ color: 'white' }}
+					_dark={{ color: 'black' }}
 				>
 					{category}
 				</Button>
