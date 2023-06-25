@@ -1,4 +1,4 @@
-import { Wrap, WrapItem, Button } from '@chakra-ui/react'
+import { Wrap, useColorModeValue, Button } from '@chakra-ui/react'
 
 const Filter = ({ categories, handleFilterChange }) => {
 	return (
@@ -7,7 +7,10 @@ const Filter = ({ categories, handleFilterChange }) => {
 				<Button
 					key={id}
 					value={category}
-					onClick={handleFilterChange}>{category}
+					onClick={handleFilterChange}
+					_dark={{ color: 'white' }}
+				>
+					{category}
 				</Button>
 			))}
 		</Wrap>

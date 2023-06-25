@@ -89,37 +89,38 @@ export default function Home() {
 				<title>Recipe App</title>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			{session ? (
-				<>
-					<Filter categories={categories} handleFilterChange={handleFilterChange} />
+			{/* {session ? ( */}
+			<>
+				<Filter categories={categories} handleFilterChange={handleFilterChange} />
 
-					<MotionSimpleGrid
-						columns={[1, 2, 3]}
-						spacing={4}
-						initial='hidden'
-						animate='visible'
-						variants={gridAnimationVariants}
-					>
-						{recipesToShow.map((recipe, index) => (
-							<MotionRecipeCard
-								key={`${filter}-${index}`}
-								recipe={recipe}
-								initial='hidden'
-								animate='visible'
-								exit='hidden'
-								variants={recipeAnimationVariants}
-							/>
-						))}
-					</MotionSimpleGrid>
-				</>
-			) : (
+				<MotionSimpleGrid
+					columns={[1, 2, 3]}
+					spacing={4}
+					initial='hidden'
+					animate='visible'
+					variants={gridAnimationVariants}
+				>
+					{recipesToShow.map((recipe, index) => (
+						<MotionRecipeCard
+							key={`${filter}-${index}`}
+							recipe={recipe}
+							initial='hidden'
+							animate='visible'
+							exit='hidden'
+							variants={recipeAnimationVariants}
+						/>
+					))}
+				</MotionSimpleGrid>
+			</>
+			{/* )
+			: (
 				<>
 					<Heading pt='4'>Login to add and edit yor recipes</Heading>
 					<Button mt='4' colorScheme='purple'>
 						<Link href='/addrecipe'>Add recipe</Link>
 					</Button>
 				</>
-			)}
+			)} */}
 		</Flex>
 	)
 }
