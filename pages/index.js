@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Head from 'next/head'
 import { RecipeCard } from '../components/RecipeCard'
 import Filter from '../components/Filter'
-import { PacmanLoader } from 'react-spinners'
+import { RingLoader } from 'react-spinners'
 import categories from '../data/categories'
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
@@ -86,7 +86,16 @@ export default function Home() {
 	}
 
 	if (status === 'loading')
-		return <PacmanLoader className='transform-gpu' color='purple' size={20} />
+		return (
+			<Flex
+				justifyContent='center'
+				alignItems='center'
+				flexDirection='column'
+				pt='10'
+			>
+				<RingLoader className='transform-gpu' color='purple' size={40} />
+			</Flex>
+		)
 
 	if (!session) {
 		return (
