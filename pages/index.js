@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Head from 'next/head'
 import { RecipeCard } from '../components/RecipeCard'
 import Filter from '../components/Filter'
+import { PacmanLoader } from 'react-spinners'
 import categories from '../data/categories'
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
@@ -14,7 +15,7 @@ const MotionSimpleGrid = motion(SimpleGrid)
 const MotionRecipeCard = motion(RecipeCard)
 
 export default function Home() {
-	const { data: session } = useSession()
+	const { data: session, status } = useSession()
 
 	const [filter, setFilter] = useState('')
 	const [recipesFetched, setRecipesFetched] = useState(false)
@@ -83,43 +84,49 @@ export default function Home() {
 			},
 		},
 	}
+
+	if (status === 'loading')
+		return <PacmanLoader className='transform-gpu' color='purple' size={20} />
+
+	if (!session) {
+		return (
+			<>
+				<Heading pt='4'>Login to add and edit your recipes</Heading>
+				<Button mt='4' colorScheme='purple'>
+					<Link href='/addrecipe'>Add recipe</Link>
+				</Button>
+			</>
+		)
+	}
+
 	return (
 		<Flex justifyContent='center' alignItems='center' flexDirection='column'>
 			<Head>
 				<title>Recipe App</title>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			{session ? (
-				<>
-					<Filter categories={categories} handleFilterChange={handleFilterChange} />
+			<>
+				<Filter categories={categories} handleFilterChange={handleFilterChange} />
 
-					<MotionSimpleGrid
-						columns={[1, 2, 3]}
-						spacing={4}
-						initial='hidden'
-						animate='visible'
-						variants={gridAnimationVariants}
-					>
-						{recipesToShow.map((recipe, index) => (
-							<MotionRecipeCard
-								key={`${filter}-${index}`}
-								recipe={recipe}
-								initial='hidden'
-								animate='visible'
-								exit='hidden'
-								variants={recipeAnimationVariants}
-							/>
-						))}
-					</MotionSimpleGrid>
-				</>
-			) : (
-				<>
-					<Heading pt='4'>Login to add and edit yor recipes</Heading>
-					<Button mt='4' colorScheme='purple'>
-						<Link href='/addrecipe'>Add recipe</Link>
-					</Button>
-				</>
-			)}
+				<MotionSimpleGrid
+					columns={[1, 2, 3]}
+					spacing={4}
+					initial='hidden'
+					animate='visible'
+					variants={gridAnimationVariants}
+				>
+					{recipesToShow.map((recipe, index) => (
+						<MotionRecipeCard
+							key={`${filter}-${index}`}
+							recipe={recipe}
+							initial='hidden'
+							animate='visible'
+							exit='hidden'
+							variants={recipeAnimationVariants}
+						/>
+					))}
+				</MotionSimpleGrid>
+			</>
 		</Flex>
 	)
 }
