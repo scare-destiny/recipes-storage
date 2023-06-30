@@ -1,6 +1,8 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { Nav } from '../components/Layout/Nav'
+import { RingLoader } from 'react-spinners'
+import { Flex } from '@chakra-ui/react'
 import { SessionProvider, useSession } from 'next-auth/react'
 
 const publicPages = ['/', `/recipes/[id]`]
@@ -36,7 +38,16 @@ function Auth({ children }) {
 	const { status } = useSession({ required: true })
 
 	if (status === 'loading') {
-		return <div>Loading...</div>
+		return (
+			<Flex
+				justifyContent='center'
+				alignItems='center'
+				flexDirection='column'
+				pt='10'
+			>
+				<RingLoader className='transform-gpu' color='purple' size={40} />
+			</Flex>
+		)
 	}
 
 	return children

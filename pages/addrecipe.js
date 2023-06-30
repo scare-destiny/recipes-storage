@@ -17,7 +17,7 @@ import {
 import { AutoResizeTextarea } from '../components/Layout/AutoResizeTextarea'
 import Link from 'next/link'
 import { useState, useRef } from 'react'
-
+import { RingLoader } from 'react-spinners'
 import { collection, getDocs, addDoc } from 'firebase/firestore/lite'
 import { database } from '../firebase'
 import categories from '../data/categories'
@@ -31,7 +31,17 @@ function Photos() {
 	const { data, error } = useSWR('/api/photos', fetcher)
 
 	if (error) return 'An error has occurred.'
-	if (!data) return 'Loading...'
+	if (!data)
+		return (
+			<Flex
+				justifyContent='center'
+				alignItems='center'
+				flexDirection='column'
+				pt='10'
+			>
+				<RingLoader className='transform-gpu' color='purple' size={40} />
+			</Flex>
+		)
 	console.log(data.photos)
 	return (
 		<div>
