@@ -9,10 +9,6 @@ import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { collection, getDocs } from 'firebase/firestore/lite'
 import { database } from '../firebase'
-import { motion } from 'framer-motion'
-
-const MotionSimpleGrid = motion(SimpleGrid)
-const MotionRecipeCard = motion(RecipeCard)
 
 export default function Home() {
 	const { data: session, status } = useSession()
@@ -117,7 +113,7 @@ export default function Home() {
 			<>
 				<Filter categories={categories} handleFilterChange={handleFilterChange} />
 
-				<MotionSimpleGrid
+				<SimpleGrid
 					columns={[1, 2, 3]}
 					spacing={4}
 					initial='hidden'
@@ -125,7 +121,7 @@ export default function Home() {
 					variants={gridAnimationVariants}
 				>
 					{recipesToShow.map((recipe, index) => (
-						<MotionRecipeCard
+						<RecipeCard
 							key={`${filter}-${index}`}
 							recipe={recipe}
 							initial='hidden'
@@ -134,7 +130,7 @@ export default function Home() {
 							variants={recipeAnimationVariants}
 						/>
 					))}
-				</MotionSimpleGrid>
+				</SimpleGrid>
 			</>
 		</Flex>
 	)
