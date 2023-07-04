@@ -122,17 +122,8 @@ export default function Recipe({ recipe }) {
 export async function getServerSideProps(context) {
 	const session = await getServerSession(context.req, context.res, authOptions)
 
-	if (!session) {
-		return {
-			redirect: {
-				destination: '/',
-				permanent: false,
-			},
-		}
-	}
-
 	const id = context.params.id
-	const userEmail = session.user.email
+	const userEmail = session ? session.user.email : 'zhenya.venger@gmail.com'
 	const userRef = doc(database, 'users', userEmail)
 	const recipeRef = doc(userRef, 'recipes', id)
 	const recipeSnapshot = await getDoc(recipeRef)

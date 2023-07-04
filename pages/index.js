@@ -33,7 +33,7 @@ export default function Home() {
 		if (session && !recipesFetched) {
 			getRecipes(session.user.email)
 		} else if (!session) {
-			setRecipesFetched(false)
+			getRecipes('zhenya.venger@gmail.com')
 		}
 	}, [session])
 
@@ -89,16 +89,16 @@ export default function Home() {
 			</Flex>
 		)
 
-	if (!session) {
-		return (
-			<>
-				<Heading pt='4'>Login to add and edit your recipes</Heading>
-				<Button mt='4' colorScheme='purple'>
-					<Link href='/addrecipe'>Add recipe</Link>
-				</Button>
-			</>
-		)
-	}
+	// if (!session) {
+	// 	return (
+	// 		<>
+	// 			<Heading pt='4'>Login to add and edit your recipes</Heading>
+	// 			<Button mt='4' colorScheme='purple'>
+	// 				<Link href='/addrecipe'>Add recipe</Link>
+	// 			</Button>
+	// 		</>
+	// 	)
+	// }
 
 	return (
 		<Flex justifyContent='center' alignItems='center' flexDirection='column'>
