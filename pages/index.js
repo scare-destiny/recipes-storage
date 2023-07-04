@@ -107,6 +107,11 @@ export default function Home() {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<>
+				{!session && (
+					<Heading as='h4' size='sm' textAlign='center' pt='4'>
+						Browse my fav recipes or sign in to add your own
+					</Heading>
+				)}
 				<Filter categories={categories} handleFilterChange={handleFilterChange} />
 
 				<SimpleGrid
