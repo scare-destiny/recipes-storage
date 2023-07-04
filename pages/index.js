@@ -17,25 +17,21 @@ export default function Home() {
 	const [recipesFetched, setRecipesFetched] = useState(false)
 	const [recipes, setRecipes] = useState([])
 
+	async function getRecipes(email) {
+		const recipeCollection = collection(database, 'users', email, 'recipes')
+		const recipeSnapshot = await getDocs(recipeCollection)
+		const recipes = recipeSnapshot.docs.map((doc) => {
+			const data = doc.data()
+			data.id = doc.id
+			return data
+		})
+		setRecipes(recipes)
+		setRecipesFetched(true)
+	}
+
 	useEffect(() => {
 		if (session && !recipesFetched) {
-			async function getRecipes() {
-				const recipeCollection = collection(
-					database,
-					'users',
-					session.user.email,
-					'recipes'
-				)
-				const recipeSnapshot = await getDocs(recipeCollection)
-				const recipes = recipeSnapshot.docs.map((doc) => {
-					const data = doc.data()
-					data.id = doc.id
-					return data
-				})
-				setRecipes(recipes)
-				setRecipesFetched(true)
-			}
-			getRecipes()
+			getRecipes(session.user.email)
 		} else if (!session) {
 			setRecipesFetched(false)
 		}
